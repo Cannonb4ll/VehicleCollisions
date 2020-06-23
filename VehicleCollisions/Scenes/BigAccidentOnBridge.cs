@@ -8,7 +8,6 @@ using static CitizenFX.Core.Native.API;
 
 namespace VehicleCollisions.Scenes
 {
-    // TODO: Peds toevoegen in autos
 internal class BigAccidentOnBridge : IScene
     {
         public string Title => "Big accident on bridge";
