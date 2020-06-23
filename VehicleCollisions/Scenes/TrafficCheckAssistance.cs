@@ -30,7 +30,8 @@ namespace VehicleCollisions.Scenes
             new PoliceCar(new Vector3(1150.52f, 390.2f, 91.06f), 3.98f, VehicleHash.Police)
                 .SetSirenActive(true)
                 .SetSirenSilent(true),
-            new PoliceCar(new Vector3(1172.3f, 405.77f, 90.82f), 333.36f, VehicleHash.Police2)
+            new PoliceCar(new Vector3(1172.3f, 405.77f, 90.82f), 333.36f, VehicleHash.Police2),
+            new PoliceCar(new Vector3(1161.28f, 390.53f, 91.45f), 336.08f, VehicleHash.Polmav),
         };
 
         public PolicePed[] PolicePeds => new[]
@@ -78,9 +79,9 @@ namespace VehicleCollisions.Scenes
             RemoveSpeedZone(SpeedZone);
         }
 
-        public Task RunAdditionalTasks()
+        public async Task RunAdditionalTasks()
         {
-            return null;
+            
         }
     }
 }

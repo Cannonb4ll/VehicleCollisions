@@ -330,6 +330,8 @@ namespace VehicleCollisions
 
         public override void OnCancelBefore()
         {
+            //Tick -= scene.RunAdditionalTasks;
+            
             try
             {
                 if (crashedCars.Length > 0)
