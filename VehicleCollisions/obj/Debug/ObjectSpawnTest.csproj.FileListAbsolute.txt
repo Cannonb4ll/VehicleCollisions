@@ -1,0 +1,9 @@
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\bin\Debug\CalloutAPI.net.dll
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\bin\Debug\CitizenFX.Core.dll
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\obj\Debug\ObjectSpawnTest.csprojAssemblyReference.cache
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\obj\Debug\ObjectSpawnTest.csproj.CoreCompileInputs.cache
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\obj\Debug\ObjectSpawnTest.csproj.CopyComplete
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\bin\Debug\ObjectSpawnTest.net.dll
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\bin\Debug\ObjectSpawnTest.net.pdb
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\obj\Debug\ObjectSpawnTest.net.dll
+C:\Users\Dennis\RiderProjects\ObjectSpawnTest\ObjectSpawnTest\obj\Debug\ObjectSpawnTest.net.pdb

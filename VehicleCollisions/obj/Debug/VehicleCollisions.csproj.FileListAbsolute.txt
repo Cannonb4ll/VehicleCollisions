@@ -1,0 +1,9 @@
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\bin\Debug\VehicleIncidents.net.dll
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\bin\Debug\VehicleIncidents.net.pdb
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\bin\Debug\CalloutAPI.net.dll
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\bin\Debug\CitizenFX.Core.dll
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\obj\Debug\VehicleCollisions.csprojAssemblyReference.cache
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\obj\Debug\VehicleCollisions.csproj.CoreCompileInputs.cache
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\obj\Debug\VehicleCollisions.csproj.CopyComplete
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\obj\Debug\VehicleIncidents.net.dll
+C:\Users\Dennis\RiderProjects\VehicleCollisions\VehicleCollisions\obj\Debug\VehicleIncidents.net.pdb

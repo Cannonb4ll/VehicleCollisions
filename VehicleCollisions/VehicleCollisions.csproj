@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{E010B29D-5633-4692-A0C4-6A79B2467B01}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>VehicleCollisions</RootNamespace>
+        <AssemblyName>VehicleIncidents.net</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="CalloutAPI.net, Version=0.6.4.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\..\Desktop\fivepd libs\CalloutAPI.net.dll</HintPath>
+        </Reference>
+        <Reference Include="CitizenFX.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\..\Desktop\fivepd libs\CitizenFX.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Entities\CivilianPed.cs" />
+        <Compile Include="Entities\CrashedVehicle.cs" />
+        <Compile Include="Entities\CrashedVehicleTrailer.cs" />
+        <Compile Include="Entities\CrashedVehicleTrailerVehicle.cs" />
+        <Compile Include="Entities\ObjectModel.cs" />
+        <Compile Include="Entities\PoliceCar.cs" />
+        <Compile Include="Entities\PolicePed.cs" />
+        <Compile Include="Entities\VehiclePed.cs" />
+        <Compile Include="Scenes\CarCrashWithBike.cs" />
+        <Compile Include="Scenes\CarDroveThroughRoadBlock.cs" />
+        <Compile Include="Scenes\MilitaryTransportEngineFailure.cs" />
+        <Compile Include="Scenes\SceneExampleFile.cs" />
+        <Compile Include="Scenes\BigAccidentOnBridge.cs" />
+        <Compile Include="Scenes\CarCrashedIntoSewers.cs" />
+        <Compile Include="Scenes\CarHasDrivenIntoChurch.cs" />
+        <Compile Include="Scenes\SevereCrashWithMilitaryConvoy.cs" />
+        <Compile Include="Scenes\TrafficCheckAssistance.cs" />
+        <Compile Include="Scenes\TrafficFightWithCarCrash.cs" />
+        <Compile Include="Scenes\TrafficLightMalfunctionWithAccident.cs" />
+        <Compile Include="Utils\PedUtilities.cs" />
+        <Compile Include="Utils\Utilities.cs" />
+        <Compile Include="Utils\VehicleUtilities.cs" />
+        <Compile Include="VehicleCollisions.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Scenes\IScene.cs" />
+        <Compile Include="Scenes\SceneFactory.cs" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>
