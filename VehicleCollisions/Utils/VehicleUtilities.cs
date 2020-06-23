@@ -48,7 +48,7 @@ namespace VehicleCollisions.Utils
             VehicleHash.Patriot,
             VehicleHash.Warrener,
             VehicleHash.Washington,
-            VehicleHash.Taxi,
+            VehicleHash.Taxi
         };
 
         private static readonly VehicleHash[] Bikes =
@@ -65,9 +65,9 @@ namespace VehicleCollisions.Utils
             VehicleHash.Lectro,
             VehicleHash.Blazer,
             VehicleHash.Blazer2,
-            VehicleHash.Blazer5,
+            VehicleHash.Blazer5
         };
-        
+
         private static readonly VehicleHash[] MilitaryAirplanes =
         {
             VehicleHash.Hydra,
@@ -76,35 +76,31 @@ namespace VehicleCollisions.Utils
             VehicleHash.Savage,
             VehicleHash.Buzzard
         };
-        
+
         public static VehicleHash GetRandomVehicle()
         {
             var vehicleHashes = Enum.GetValues(typeof(VehicleHash));
-            Random rnd = new Random();
-            VehicleHash vehicle = (VehicleHash)vehicleHashes.GetValue(rnd.Next(0, vehicleHashes.Length));
+            var rnd = new Random();
+            var vehicle = (VehicleHash) vehicleHashes.GetValue(rnd.Next(0, vehicleHashes.Length));
 
-            return vehicle ;
+            return vehicle;
         }
-        
+
         public static VehicleHash GetSafeRandomVehicle()
         {
-            Random rnd = new Random();
-
-            return SafeVehicleHashes[rnd.Next(0, SafeVehicleHashes.Length)];
+            return SafeVehicleHashes[Utilities.Between(0, SafeVehicleHashes.Length)];
         }
-        
+
         public static VehicleHash GetRandomMilitaryPlane()
         {
-            Random rnd = new Random();
+            var rnd = new Random();
 
             return MilitaryAirplanes[rnd.Next(0, MilitaryAirplanes.Length)];
         }
-        
+
         public static VehicleHash GetRandomBike()
         {
-            Random rnd = new Random();
-
-            return Bikes[rnd.Next(0, Bikes.Length)];
+            return Bikes[Utilities.Between(0, Bikes.Length)];
         }
     }
 }

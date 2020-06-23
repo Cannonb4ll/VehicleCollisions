@@ -4,64 +4,64 @@ namespace VehicleCollisions.Entities
 {
     public class CivilianPed
     {
-        public Vector3 Location;
-        public float Heading;
-        public PedHash Model;
-        public int Health = 200;
-        public WeaponHash Weapon;
-        public bool Invisible;
-        public string AnimationLib = null;
-        public string AnimationName = null;
-        public string Scenario = null;
+        public string AnimationLib;
+        public string AnimationName;
         public bool HasBlip;
-        
-        public CivilianPed (Vector3 location, float heading, PedHash model)
+        public float Heading;
+        public int Health = 200;
+        public bool Invisible;
+        public Vector3 Location;
+        public PedHash Model;
+        public string Scenario;
+        public WeaponHash Weapon;
+
+        public CivilianPed(Vector3 location, float heading, PedHash model)
         {
-            this.Location = location;
-            this.Heading = heading;
-            this.Model = model;
+            Location = location;
+            Heading = heading;
+            Model = model;
         }
 
         public CivilianPed SetHealth(int health = 200)
         {
-            this.Health = health;
+            Health = health;
 
             return this;
         }
-        
+
         public CivilianPed GiveWeapon(WeaponHash weapon)
         {
-            this.Weapon = weapon;
-            
+            Weapon = weapon;
+
             return this;
         }
 
         public CivilianPed SetInvisible(bool invisible = false)
         {
-            this.Invisible = invisible;
-            
+            Invisible = invisible;
+
             return this;
         }
 
         public CivilianPed SetAnimation(string animationLib = null, string animationName = null)
         {
-            this.AnimationLib = animationLib;
-            this.AnimationName = animationName;
-            
+            AnimationLib = animationLib;
+            AnimationName = animationName;
+
             return this;
         }
-        
+
         public CivilianPed SetScenario(string scenario = null)
         {
-            this.Scenario = scenario;
-            
+            Scenario = scenario;
+
             return this;
         }
-        
+
         public CivilianPed ShouldHaveBlip(bool hasBlip = false)
         {
-            this.HasBlip = hasBlip;
-            
+            HasBlip = hasBlip;
+
             return this;
         }
     }

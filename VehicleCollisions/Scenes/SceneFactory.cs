@@ -3,7 +3,7 @@
     public class SceneFactory
     {
         private readonly int _sceneNumber;
-        
+
         public SceneFactory(int sceneNumber)
         {
             _sceneNumber = sceneNumber;
@@ -13,11 +13,11 @@
         {
             switch (_sceneNumber)
             {
-                case 1 :
+                case 1:
                     return new SevereCrashWithMilitaryConvoy();
-                case 2 :
+                case 2:
                     return new CarCrashedIntoSewers();
-                case 3 :
+                case 3:
                     return new TrafficFightWithCarCrash();
                 case 4:
                     return new TrafficLightMalfunctionWithAccident();

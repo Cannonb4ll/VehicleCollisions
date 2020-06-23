@@ -4,38 +4,38 @@ namespace VehicleCollisions.Entities
 {
     public class PoliceCar
     {
-        public Vector3 Location;
         public float Heading;
+        public Vector3 Location;
         public VehicleHash Model;
         public bool SirenActive;
         public bool SirenSilent;
         public bool TrunkOpen;
 
-        public PoliceCar (Vector3 location, float heading, VehicleHash model)
+        public PoliceCar(Vector3 location, float heading, VehicleHash model)
         {
-            this.Location = location;
-            this.Heading = heading;
-            this.Model = model;
+            Location = location;
+            Heading = heading;
+            Model = model;
         }
 
         public PoliceCar SetSirenActive(bool sirenActive = false)
         {
-            this.SirenActive = sirenActive;
-            
+            SirenActive = sirenActive;
+
             return this;
         }
-        
+
         public PoliceCar SetSirenSilent(bool sirenSilent = false)
         {
-            this.SirenSilent = sirenSilent;
-            
+            SirenSilent = sirenSilent;
+
             return this;
         }
 
         public PoliceCar SetTrunkOpen(bool trunkOpen = false)
         {
-            this.TrunkOpen = trunkOpen;
-            
+            TrunkOpen = trunkOpen;
+
             return this;
         }
     }

@@ -4,20 +4,20 @@ namespace VehicleCollisions.Entities
 {
     public class CrashedVehicleTrailerVehicle
     {
-        public Vector3 Location;
         public float Heading;
+        public Vector3 Location;
         public VehicleHash Model;
         public VehicleHash VehicleOnTrailer;
 
-        public CrashedVehicleTrailerVehicle (
-            Vector3 location, 
-            float heading, 
+        public CrashedVehicleTrailerVehicle(
+            Vector3 location,
+            float heading,
             VehicleHash model
         )
         {
-            this.Location = location;
-            this.Heading = heading;
-            this.Model = model;
+            Location = location;
+            Heading = heading;
+            Model = model;
         }
     }
 }
