@@ -46,7 +46,7 @@ namespace VehicleCollisions.Scenes
 
         private int CalloutStarted;
         private bool CarFixed;
-        private readonly int CarFixingTime = rnd.Next(15, 60) * 1000;
+        private readonly int CarFixingTime = Utilities.Between(15, 60) * 1000;
         public Vector3 RandomCoordinates;
 
         private Ped[] SpawnedCivilianPeds;
@@ -55,7 +55,7 @@ namespace VehicleCollisions.Scenes
         public MilitaryTransportEngineFailure()
         {
             // Get a random accident
-            AccidentIndex = rnd.Next(0, AccidentLocations.Length);
+            AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
 
             // Get the random accident coordinates
             RandomCoordinates = AccidentLocations[AccidentIndex];
@@ -94,7 +94,7 @@ namespace VehicleCollisions.Scenes
         {
             new CrashedVehicle(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z),
                     AccidentHeadings[AccidentIndex], VehicleHash.Barracks2)
-                .SetEngineHealth(rnd.Next(0, 200))
+                .SetEngineHealth(Utilities.Between(0, 200))
                 .ShouldHaveBlip(true)
                 .SetBlinkingLights(true)
                 .SetDoorsOpen(false, false, false, false, true)
@@ -110,7 +110,7 @@ namespace VehicleCollisions.Scenes
                             AccidentHeadings[AccidentIndex], VehicleHash.TRFlat)
                         .SetVehicleOnTrailer(new CrashedVehicleTrailerVehicle(
                             new Vector3(RandomCoordinates.X - 5, RandomCoordinates.Y - 5, RandomCoordinates.Z), 248f,
-                            TrailerVehicles[rnd.Next(0, TrailerVehicles.Length)]))
+                            TrailerVehicles[Utilities.Between(0, TrailerVehicles.Length)]))
                 )
         };
 

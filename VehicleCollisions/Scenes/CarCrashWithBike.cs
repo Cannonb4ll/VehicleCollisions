@@ -41,7 +41,7 @@ namespace VehicleCollisions.Scenes
 
         private static Random rnd => new Random();
 
-        public Vector3 BikeCoordinates => new Vector3(Coordinates.X + rnd.Next(1, 10), Coordinates.Y + rnd.Next(1, 10),
+        public Vector3 BikeCoordinates => new Vector3(Coordinates.X + Utilities.Between(1, 10), Coordinates.Y + Utilities.Between(1, 10),
             Coordinates.Z);
 
         public string Title => "Car crash with bike";
@@ -58,8 +58,8 @@ namespace VehicleCollisions.Scenes
             };
         }
 
-        public Vector3 Coordinates => new Vector3(RandomCoordinates.X + rnd.Next(0, 10),
-            RandomCoordinates.Y + rnd.Next(0, 10), RandomCoordinates.Z);
+        public Vector3 Coordinates => new Vector3(RandomCoordinates.X + Utilities.Between(0, 10),
+            RandomCoordinates.Y + Utilities.Between(0, 10), RandomCoordinates.Z);
 
         public PoliceCar[] PoliceCars => new PoliceCar[]
         {
@@ -75,17 +75,17 @@ namespace VehicleCollisions.Scenes
 
         public CrashedVehicle[] CrashedCars => new[]
         {
-            new CrashedVehicle(Coordinates, rnd.Next(0, 360), VehicleUtilities.GetSafeRandomVehicle())
+            new CrashedVehicle(Coordinates, Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
                 .SetPedsInVehicle(new[]
                 {
                     new VehiclePed(Coordinates, 0f, PedUtilities.GetRandomPed(), VehicleSeat.Driver)
                 })
-                .SetEngineHealth(rnd.Next(50, 200))
+                .SetEngineHealth(Utilities.Between(50, 200))
                 .SetDoorsOpen(false, false, false, false, Utilities.RandomBool())
                 .ShouldHaveBlip(true),
 
-            new CrashedVehicle(BikeCoordinates, rnd.Next(0, 360), VehicleUtilities.GetRandomBike())
-                .SetEngineHealth(rnd.Next(0, 200))
+            new CrashedVehicle(BikeCoordinates, Utilities.Between(0, 360), VehicleUtilities.GetRandomBike())
+                .SetEngineHealth(Utilities.Between(0, 200))
                 .ShouldHaveBlip(true)
                 .ShouldRandomlyBurstTires(true)
                 .SetRotation(new[] {0f, 90f, 0f})
@@ -94,8 +94,8 @@ namespace VehicleCollisions.Scenes
         public CivilianPed[] CivilianPeds => new[]
         {
             new CivilianPed(
-                    new Vector3(BikeCoordinates.X + rnd.Next(1, 5), BikeCoordinates.Y + rnd.Next(1, 5),
-                        BikeCoordinates.Z), rnd.Next(0, 360), PedUtilities.GetRandomPed())
+                    new Vector3(BikeCoordinates.X + Utilities.Between(1, 5), BikeCoordinates.Y + Utilities.Between(1, 5),
+                        BikeCoordinates.Z), Utilities.Between(0, 360), PedUtilities.GetRandomPed())
                 .ShouldHaveBlip(true)
                 .SetHealth(0)
         };

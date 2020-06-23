@@ -81,7 +81,7 @@ namespace VehicleCollisions.Utils
         {
             var vehicleHashes = Enum.GetValues(typeof(VehicleHash));
             var rnd = new Random();
-            var vehicle = (VehicleHash) vehicleHashes.GetValue(rnd.Next(0, vehicleHashes.Length));
+            var vehicle = (VehicleHash) vehicleHashes.GetValue(Utilities.Between(0, vehicleHashes.Length));
 
             return vehicle;
         }
@@ -95,7 +95,7 @@ namespace VehicleCollisions.Utils
         {
             var rnd = new Random();
 
-            return MilitaryAirplanes[rnd.Next(0, MilitaryAirplanes.Length)];
+            return MilitaryAirplanes[Utilities.Between(0, MilitaryAirplanes.Length)];
         }
 
         public static VehicleHash GetRandomBike()

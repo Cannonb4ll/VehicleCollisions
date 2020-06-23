@@ -49,7 +49,7 @@ namespace VehicleCollisions.Scenes
         public CarDroveThroughRoadBlock()
         {
             // Get a random accident
-            AccidentIndex = rnd.Next(0, AccidentLocations.Length);
+            AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
 
             // Get the random accident coordinates
             RandomCoordinates = AccidentLocations[AccidentIndex];
@@ -91,7 +91,7 @@ namespace VehicleCollisions.Scenes
         {
             new CrashedVehicle(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z),
                     AccidentHeadings[AccidentIndex], VehicleUtilities.GetSafeRandomVehicle())
-                .SetEngineHealth(rnd.Next(-50, 200))
+                .SetEngineHealth(Utilities.Between(-50, 200))
                 .ShouldHaveBlip(true)
                 .SetBlinkingLights(Utilities.RandomBool())
                 .ShouldRandomlyBurstTires(Utilities.RandomBool())
@@ -100,7 +100,7 @@ namespace VehicleCollisions.Scenes
                 {
                     new VehiclePed(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z),
                             AccidentHeadings[AccidentIndex], PedUtilities.GetRandomPed(), VehicleSeat.Driver)
-                        .SetHealth(rnd.Next(0, 100))
+                        .SetHealth(Utilities.Between(0, 100))
                 })
         };
 

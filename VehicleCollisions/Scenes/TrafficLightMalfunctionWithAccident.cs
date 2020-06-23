@@ -55,7 +55,7 @@ namespace VehicleCollisions.Scenes
                 })
                 .ShouldRandomlyBeDamaged(true)
                 .SetBlinkingLights(true)
-                .SetEngineHealth(rnd.Next(-50, 100))
+                .SetEngineHealth(Utilities.Between(-50, 100))
                 .ShouldHaveBlip(true),
             new CrashedVehicle(new Vector3(-637.04f, -336.79f, 34.72f), 232.38f,
                     VehicleUtilities.GetSafeRandomVehicle())
@@ -66,7 +66,7 @@ namespace VehicleCollisions.Scenes
                 })
                 .ShouldRandomlyBeDamaged(true)
                 .SetBlinkingLights(true, 1)
-                .SetEngineHealth(rnd.Next(-50, 100))
+                .SetEngineHealth(Utilities.Between(-50, 100))
                 .SetDoorsOpen(false, false, false, false, true)
                 .ShouldHaveBlip(true),
             new CrashedVehicle(new Vector3(-632.7f, -343.53f, 34.48f), 26.27f, VehicleUtilities.GetSafeRandomVehicle())
@@ -78,7 +78,7 @@ namespace VehicleCollisions.Scenes
                 })
                 .ShouldRandomlyBeDamaged(true)
                 .SetBlinkingLights(true, 2)
-                .SetEngineHealth(rnd.Next(-50, 100))
+                .SetEngineHealth(Utilities.Between(-50, 100))
                 .SetDoorsOpen(false, false, false, false, true)
                 .ShouldHaveBlip(true)
         };

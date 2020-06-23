@@ -12,7 +12,7 @@ namespace VehicleCollisions.Scenes
 
         public BigAccidentOnBridge()
         {
-            RandomCoordinates = new Vector3(rnd.Next(510, 807), rnd.Next(-861, -841), rnd.Next(40, 42));
+            RandomCoordinates = new Vector3(Utilities.Between(510, 807), Utilities.Between(-861, -841), Utilities.Between(40, 42));
         }
 
 
@@ -51,7 +51,7 @@ namespace VehicleCollisions.Scenes
         public CrashedVehicle[] CrashedCars => new[]
         {
             new CrashedVehicle(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z),
-                    rnd.Next(0, 360), VehicleUtilities.GetSafeRandomVehicle())
+                    Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
                 .SetEngineHealth(25)
                 .ShouldHaveBlip(true)
                 .ShouldRandomlyBeDamaged(true)
@@ -59,15 +59,15 @@ namespace VehicleCollisions.Scenes
                 {
                     new VehiclePed(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z), 0f,
                             PedUtilities.GetRandomPed(), VehicleSeat.Driver)
-                        .SetHealth(rnd.Next(0, 200)),
+                        .SetHealth(Utilities.Between(0, 200)),
                     new VehiclePed(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z), 0f,
                             PedUtilities.GetRandomPed(), VehicleSeat.Passenger)
-                        .SetHealth(rnd.Next(0, 200))
+                        .SetHealth(Utilities.Between(0, 200))
                         .ShouldRandomlySpawn(true)
                 }),
             new CrashedVehicle(
-                    new Vector3(RandomCoordinates.X + rnd.Next(3, 6), RandomCoordinates.Y + rnd.Next(3, 6),
-                        RandomCoordinates.Z), rnd.Next(0, 360), VehicleUtilities.GetSafeRandomVehicle())
+                    new Vector3(RandomCoordinates.X + Utilities.Between(3, 6), RandomCoordinates.Y + Utilities.Between(3, 6),
+                        RandomCoordinates.Z), Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
                 .SetEngineHealth(0)
                 .ShouldHaveBlip(true)
                 .ShouldRandomlyBeDamaged(true)
@@ -78,12 +78,12 @@ namespace VehicleCollisions.Scenes
                         .SetHealth(0),
                     new VehiclePed(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z), 0f,
                             PedUtilities.GetRandomPed(), VehicleSeat.Passenger)
-                        .SetHealth(rnd.Next(0, 200))
+                        .SetHealth(Utilities.Between(0, 200))
                         .ShouldRandomlySpawn(true)
                 }),
             new CrashedVehicle(
-                    new Vector3(RandomCoordinates.X + rnd.Next(3, 6), RandomCoordinates.Y + rnd.Next(3, 6),
-                        RandomCoordinates.Z), rnd.Next(0, 360), VehicleUtilities.GetSafeRandomVehicle())
+                    new Vector3(RandomCoordinates.X + Utilities.Between(3, 6), RandomCoordinates.Y + Utilities.Between(3, 6),
+                        RandomCoordinates.Z), Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
                 .SetEngineHealth(0)
                 .ShouldHaveBlip(true)
                 .ShouldRandomlyBeDamaged(true)
@@ -94,7 +94,7 @@ namespace VehicleCollisions.Scenes
                         .SetHealth(0),
                     new VehiclePed(new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z), 0f,
                             PedUtilities.GetRandomPed(), VehicleSeat.Passenger)
-                        .SetHealth(rnd.Next(0, 200))
+                        .SetHealth(Utilities.Between(0, 200))
                         .ShouldRandomlySpawn(true)
                 })
         };

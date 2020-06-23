@@ -87,14 +87,14 @@ namespace VehicleCollisions.Utils
         {
             var rnd = new Random();
 
-            return CopHashes[rnd.Next(0, CopHashes.Length)];
+            return CopHashes[Utilities.Between(0, CopHashes.Length)];
         }
 
         public static PedHash GetRandomMilitary()
         {
             var rnd = new Random();
 
-            return MilitaryHashes[rnd.Next(0, MilitaryHashes.Length)];
+            return MilitaryHashes[Utilities.Between(0, MilitaryHashes.Length)];
         }
 
 
