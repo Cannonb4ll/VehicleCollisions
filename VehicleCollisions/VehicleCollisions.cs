@@ -34,7 +34,7 @@ namespace VehicleCollisions
 
         public override async Task Init()
         {
-            // When user accepts continuef
+            // When user accepts, continue
             OnAccept();
 
             // Spawn the on-scene cop car (if any)
