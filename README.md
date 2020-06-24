@@ -1,6 +1,6 @@
 # Vehicle Collisions [10+ callouts]
 
-**IMPORTANT NOTE** For the record, I am a PHP developer (in particular with the Laravel frameowkr), I am not a professional C# developer, what's shown inside this repository is me learning C#. Bear with me as I go with this and learning, positive critisism is welcome.
+**IMPORTANT NOTE** For the record, I am a PHP developer (in particular with the Laravel framework), I am not a professional C# developer, what's shown inside this repository is me learning C#. Bear with me as I go with this and learning, positive critisism is welcome.
 
 ## List of callouts
 
