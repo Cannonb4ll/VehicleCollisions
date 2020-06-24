@@ -44,8 +44,6 @@ namespace VehicleCollisions.Scenes
             RandomCoordinates = AccidentLocations[AccidentIndex];
         }
 
-        private static Random rnd => new Random();
-
         public Vector3 BikeCoordinates => new Vector3(Coordinates.X + Utilities.Between(1, 10),
             Coordinates.Y + Utilities.Between(1, 10),
             Coordinates.Z);
