@@ -23,8 +23,8 @@ namespace VehicleCollisions
 
         public VehicleCollisions()
         {
-            //scene = new SceneFactory(Utilities.Between(1, 10)).GetScene();
-            scene = new SceneFactory(9).GetScene(this);
+            scene = new SceneFactory(Utilities.Between(1, 10)).GetScene(this);
+            //scene = new SceneFactory(9).GetScene(this);
 
             InitBase(new Vector3(scene.Coordinates.X, scene.Coordinates.Y, scene.Coordinates.Z));
 
@@ -303,7 +303,6 @@ namespace VehicleCollisions
 
         public async Task SpawnCivilians()
         {
-            GetDistance
             civilianPeds = new Ped[scene.CivilianPeds.Length];
             for (var i = 0; i < scene.CivilianPeds.Length; i++)
             {
@@ -369,7 +368,7 @@ namespace VehicleCollisions
                         }
                     }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -390,7 +389,7 @@ namespace VehicleCollisions
                         }
                     }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -402,7 +401,7 @@ namespace VehicleCollisions
                     foreach (var spawnedObject in spawnedObjects)
                         Entity.FromHandle(spawnedObject).Delete();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -418,7 +417,7 @@ namespace VehicleCollisions
                         policeCar.Delete();
                     }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -434,7 +433,7 @@ namespace VehicleCollisions
                         policePed.Delete();
                     }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -444,7 +443,7 @@ namespace VehicleCollisions
                 // Run the scene finish method and pass along peds, cars, etc.
                 scene.Finish();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -464,6 +463,18 @@ namespace VehicleCollisions
             Ped spawned = (Ped) await SpawnPed(pedHash, location, heading);
 
             return spawned;
+        }
+        
+        public bool _IsCarInReach(Vehicle origin, Vehicle destination, float reach = 25f)
+        {
+            float total = World.GetDistance( origin.Position, destination.Position);
+
+            if (total < reach)
+            {
+                return true;
+            }
+            
+            return false;
         }
     }
 }
