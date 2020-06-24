@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CalloutAPI;
 using CitizenFX.Core;
 using VehicleCollisions.Entities;
 using VehicleCollisions.Utils;
@@ -11,6 +10,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class MilitaryTransportEngineFailure : IScene
     {
+        public bool HasAdditionalTasks => true;
+        
         private static readonly VehicleHash[] TrailerVehicles =
         {
             VehicleHash.Hydra,
@@ -30,9 +31,12 @@ namespace VehicleCollisions.Scenes
             VehicleHash.Cognoscenti2,
             VehicleHash.Cog552,
             VehicleHash.Kuruma2,
-            VehicleHash.Schafter6,
+            VehicleHash.Schafter6
         };
-        
+
+        private readonly int CarFixingTime = Utilities.Between(15, 60) * 1000;
+        private readonly VehicleCollisions _vehicleCollisions;
+
         public float[] AccidentHeadings =
         {
             252.9f,
@@ -60,24 +64,23 @@ namespace VehicleCollisions.Scenes
             new Vector3(-1949.83f, 273.31f, 85.79f),
             new Vector3(-458.47f, -2886.79f, 6.0f),
             new Vector3(1000.01f, -2599.96f, 42.95f),
-            new Vector3(1008.78f, -843.24f, 31.76f),
+            new Vector3(1008.78f, -843.24f, 31.76f)
         };
+
+        private Ped BadGuyDriver;
+        private Vehicle BadGuyVehicle;
 
         private int CalloutStarted;
         private bool CarFixed;
-        private readonly int CarFixingTime = Utilities.Between(15, 60) * 1000;
         public Vector3 RandomCoordinates;
 
         private Ped[] SpawnedCivilianPeds;
         private Vehicle[] SpawnedCrashedCars;
-        private VehicleCollisions _vehicleCollisions;
-        private Vehicle BadGuyVehicle;
-        private Ped BadGuyDriver;
 
         public MilitaryTransportEngineFailure(VehicleCollisions vehicleCollisions)
         {
             _vehicleCollisions = vehicleCollisions;
-            
+
             // Get a random accident
             AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
 
@@ -184,7 +187,7 @@ namespace VehicleCollisions.Scenes
 
                     return;
                 }
-                
+
                 // 15% chance it catches on fire
                 if (Utilities.RandomBool(15))
                 {
@@ -192,7 +195,7 @@ namespace VehicleCollisions.Scenes
 
                     return;
                 }
-                
+
                 // 10% chance it gets attacked
                 if (Utilities.RandomBool(10))
                 {
@@ -215,7 +218,7 @@ namespace VehicleCollisions.Scenes
 
             SpawnedCivilianPeds[0].Task.FleeFrom(SpawnedCrashedCars[0].Driver);
         }
-        
+
         public async void MechanicGetsOverWhelmedByFumes()
         {
             ShowSubtitle("[Military officer] Ooof... These fumes are not good, I do not feel well..", 10000);
@@ -224,39 +227,42 @@ namespace VehicleCollisions.Scenes
 
             SetEntityHealth(SpawnedCivilianPeds[0].Handle, 0);
         }
-        
+
         public async void MilitaryGetsAttacked()
         {
             ShowNotification("[Dispatch] We've received a call a suspicious vehicle is heading towards your location.");
             ShowNotification("[Dispatch] We marked the vehicle on your map, check out the vehicle.");
-            
-            Vector3 spawnLocationBadGuys =
-                World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(Utilities.Between(100, 300), Utilities.Between(100, 300), 0)));
 
-            BadGuyVehicle = await _vehicleCollisions._SpawnVehicle(BadGuyVehicles[Utilities.Between(0, BadGuyVehicles.Length)], spawnLocationBadGuys, 100f);
+            var spawnLocationBadGuys =
+                World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(Utilities.Between(100, 300),
+                    Utilities.Between(100, 300), 0)));
+
+            BadGuyVehicle =
+                await _vehicleCollisions._SpawnVehicle(BadGuyVehicles[Utilities.Between(0, BadGuyVehicles.Length)],
+                    spawnLocationBadGuys, 100f);
 
             BadGuyVehicle.AttachBlip();
             BadGuyVehicle.AttachedBlip.Sprite = BlipSprite.GunCar;
 
             BadGuyDriver = await _vehicleCollisions._SpawnPed(PedUtilities.GetRandomPed(), spawnLocationBadGuys);
             BadGuyDriver.AttachBlip();
-            
+
             BadGuyDriver.SetIntoVehicle(BadGuyVehicle, VehicleSeat.Driver);
-            
-            BadGuyDriver.Task.DriveTo(BadGuyVehicle, new Vector3(RandomCoordinates.X + Utilities.Between(0,1), RandomCoordinates.Y + Utilities.Between(0,1), RandomCoordinates.Z), 30f, 100f, 786996);
-            
+
+            BadGuyDriver.Task.DriveTo(BadGuyVehicle,
+                new Vector3(RandomCoordinates.X + Utilities.Between(0, 1),
+                    RandomCoordinates.Y + Utilities.Between(0, 1), RandomCoordinates.Z), 30f, 100f, 786996);
+
             BadGuyDriver.Weapons.Give(WeaponHash.MicroSMG, 100, true, true);
 
             // Wait until car is in reach...
             while (!_vehicleCollisions._IsCarInReach(BadGuyVehicle, SpawnedCrashedCars[0], 35f))
-            {
                 await BaseScript.Delay(2000);
-            }
 
             // Start the shooting
             BadGuyDriver.Task.VehicleShootAtPed(SpawnedCivilianPeds[0]);
             BadGuyDriver.AlwaysKeepTask = true;
-            
+
             // React and run away
             SpawnedCivilianPeds[0].Task.ReactAndFlee(BadGuyDriver);
             SpawnedCivilianPeds[0].AlwaysKeepTask = true;
@@ -276,7 +282,7 @@ namespace VehicleCollisions.Scenes
             SetVehicleIndicatorLights(SpawnedCrashedCars[0].Handle, 0, false);
             SetVehicleIndicatorLights(SpawnedCrashedCars[0].Handle, 1, false);
 
-            
+
             // Wait for realism
             await BaseScript.Delay(2500);
 

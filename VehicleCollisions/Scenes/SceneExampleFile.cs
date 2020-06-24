@@ -6,6 +6,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class SceneExampleFile : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public string Title => "<Title>";
         public string Description => "<Description>";
         public int ResponseCode => 3;
@@ -51,8 +53,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }

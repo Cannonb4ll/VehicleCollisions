@@ -9,9 +9,9 @@ namespace VehicleCollisions.Entities
         public float Heading;
         public Vector3 Location;
         public PedHash Model;
-        public WeaponHash Weapon;
         public string Scenario;
-        
+        public WeaponHash Weapon;
+
         public PolicePed(Vector3 location, float heading, PedHash model)
         {
             Location = location;
@@ -25,7 +25,7 @@ namespace VehicleCollisions.Entities
 
             return this;
         }
-        
+
         public PolicePed SetAnimation(string animationLib = null, string animationName = null)
         {
             AnimationLib = animationLib;
@@ -33,7 +33,7 @@ namespace VehicleCollisions.Entities
 
             return this;
         }
-        
+
         public PolicePed SetScenario(string scenario = null)
         {
             Scenario = scenario;

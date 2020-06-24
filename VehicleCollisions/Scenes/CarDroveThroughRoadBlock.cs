@@ -8,6 +8,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class CarDroveThroughRoadBlock : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public float[] AccidentHeadings =
         {
             169.54f,
@@ -120,9 +122,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
-            
+            return null;
         }
     }
 }

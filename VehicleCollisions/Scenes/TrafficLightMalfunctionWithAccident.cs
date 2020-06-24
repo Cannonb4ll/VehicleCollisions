@@ -8,6 +8,7 @@ namespace VehicleCollisions.Scenes
 {
     internal class TrafficLightMalfunctionWithAccident : IScene
     {
+        public bool HasAdditionalTasks => false;
         private static Random rnd => new Random();
         public string Title => "Traffic light malfunction with accident";
 
@@ -99,8 +100,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace VehicleCollisions.Scenes
 {
     internal class CarCrashedIntoSewers : IScene
     {
+        public bool HasAdditionalTasks => false;
         public string Title => "Car crashed into sewers";
         public string Description => "We've received a call that car has driven down and crashed into the sewers.";
         public int ResponseCode => 3;
@@ -59,7 +60,7 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public void Start(Ped[] CivilianPeds = null, Vehicle[] CrashedCars = null)
+        public void Start(Ped[] civilianPeds = null, Vehicle[] crashedCars = null)
         {
         }
 
@@ -67,8 +68,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }

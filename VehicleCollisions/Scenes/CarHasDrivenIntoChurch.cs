@@ -6,9 +6,10 @@ using static CitizenFX.Core.Native.API;
 
 namespace VehicleCollisions.Scenes
 {
-    // TODO coordinaten auto klpppen niets
     internal class CarHasDrivenIntoChurch : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public string Title => "Car has driven into church";
 
         public string Description =>
@@ -72,8 +73,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }

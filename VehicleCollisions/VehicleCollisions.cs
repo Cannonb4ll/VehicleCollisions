@@ -12,26 +12,24 @@ namespace VehicleCollisions
     [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.0.0", Probability.Medium)]
     public class VehicleCollisions : Callout
     {
-        private Ped[] civilianPeds;
-        private Vehicle[] crashedCars;
-        private Vehicle[] policeCars;
-        private Ped[] policePeds;
-        private readonly Random random = new Random();
-        private readonly IScene scene;
-        private int[] spawnedObjects;
+        private readonly IScene _scene;
+        private Ped[] _civilianPeds;
+        private Vehicle[] _crashedCars;
+        private Vehicle[] _policeCars;
+        private Ped[] _policePeds;
+        private int[] _spawnedObjects;
         
-
         public VehicleCollisions()
         {
-            scene = new SceneFactory(Utilities.Between(1, 10)).GetScene(this);
-            //scene = new SceneFactory(9).GetScene(this);
+            _scene = new SceneFactory(Utilities.Between(1, 10)).GetScene(this);
+            //scene = new SceneFactory(2).GetScene(this);
 
-            InitBase(new Vector3(scene.Coordinates.X, scene.Coordinates.Y, scene.Coordinates.Z));
+            InitBase(new Vector3(_scene.Coordinates.X, _scene.Coordinates.Y, _scene.Coordinates.Z));
 
-            ShortName = scene.Title;
-            CalloutDescription = scene.Description;
-            ResponseCode = scene.ResponseCode;
-            StartDistance = scene.StartDistance;
+            ShortName = _scene.Title;
+            CalloutDescription = _scene.Description;
+            ResponseCode = _scene.ResponseCode;
+            StartDistance = _scene.StartDistance;
         }
 
         public override async Task Init()
@@ -58,7 +56,7 @@ namespace VehicleCollisions
             RunNotifications();
 
             // Run the accept method
-            scene.Accept();
+            _scene.Accept();
         }
 
         public override void OnStart(Ped player)
@@ -66,62 +64,63 @@ namespace VehicleCollisions
             base.OnStart(player);
 
             // Run the scene start method
-            scene.Start(civilianPeds, crashedCars);
+            _scene.Start(_civilianPeds, _crashedCars);
 
-            Tick += scene.RunAdditionalTasks;
+            if (_scene.HasAdditionalTasks)
+            {
+                Tick += _scene.RunAdditionalTasks;
+            }
         }
 
         public async Task SpawnOnSceneCopCars()
         {
-            policeCars = new Vehicle[scene.PoliceCars.Length];
-            for (var i = 0; i < scene.PoliceCars.Length; i++)
+            _policeCars = new Vehicle[_scene.PoliceCars.Length];
+            for (var i = 0; i < _scene.PoliceCars.Length; i++)
             {
-                var policeCar = scene.PoliceCars[i];
+                var policeCar = _scene.PoliceCars[i];
 
-                policeCars[i] = await SpawnVehicle(policeCar.Model, policeCar.Location, policeCar.Heading);
+                _policeCars[i] = await SpawnVehicle(policeCar.Model, policeCar.Location, policeCar.Heading);
 
-                if (policeCar.SirenActive) policeCars[i].IsSirenActive = true;
-                if (policeCar.SirenSilent) policeCars[i].IsSirenSilent = true;
+                if (policeCar.SirenActive) _policeCars[i].IsSirenActive = true;
+                if (policeCar.SirenSilent) _policeCars[i].IsSirenSilent = true;
 
-                if (policeCar.TrunkOpen) SetVehicleDoorOpen(policeCars[i].Handle, 5, false, false);
+                if (policeCar.TrunkOpen) SetVehicleDoorOpen(_policeCars[i].Handle, 5, false, false);
             }
         }
 
         public async Task SpawnOnScenePedCops()
         {
-            policePeds = new Ped[scene.PolicePeds.Length];
-            for (var i = 0; i < scene.PolicePeds.Length; i++)
+            _policePeds = new Ped[_scene.PolicePeds.Length];
+            for (var i = 0; i < _scene.PolicePeds.Length; i++)
             {
-                var policePed = scene.PolicePeds[i];
+                var policePed = _scene.PolicePeds[i];
 
-                policePeds[i] = await SpawnPed(policePed.Model, policePed.Location);
-                policePeds[i].AlwaysKeepTask = true;
-                policePeds[i].BlockPermanentEvents = true;
+                _policePeds[i] = await SpawnPed(policePed.Model, policePed.Location);
+                _policePeds[i].AlwaysKeepTask = true;
+                _policePeds[i].BlockPermanentEvents = true;
 
-                policePeds[i].Weapons.Give(policePed.Weapon, 1, true, true);
+                _policePeds[i].Weapons.Give(policePed.Weapon, 1, true, true);
 
-                SetEntityHeading(policePeds[i].Handle, policePed.Heading);
-                
+                SetEntityHeading(_policePeds[i].Handle, policePed.Heading);
+
                 if (policePed.AnimationLib != null)
                 {
                     RequestAnimDict(policePed.AnimationLib);
-                    policePeds[i].Task.PlayAnimation(policePed.AnimationLib, policePed.AnimationName);
+                    _policePeds[i].Task.PlayAnimation(policePed.AnimationLib, policePed.AnimationName);
                 }
-                
+
                 if (policePed.Scenario != null)
-                {
-                    TaskStartScenarioInPlace(policePeds[i].Handle, policePed.Scenario, 0, true);
-                }
+                    TaskStartScenarioInPlace(_policePeds[i].Handle, policePed.Scenario, 0, true);
             }
         }
 
         public async Task SpawnObjects()
         {
-            spawnedObjects = new int[scene.ObjectModels.Length];
+            _spawnedObjects = new int[_scene.ObjectModels.Length];
 
-            for (var i = 0; i < scene.ObjectModels.Length; i++)
+            for (var i = 0; i < _scene.ObjectModels.Length; i++)
             {
-                var spawnedObject = scene.ObjectModels[i];
+                var spawnedObject = _scene.ObjectModels[i];
 
                 // Request the model
                 RequestModel(spawnedObject.ModelHash);
@@ -130,25 +129,25 @@ namespace VehicleCollisions
                 while (!HasModelLoaded(spawnedObject.ModelHash)) await BaseScript.Delay(1000);
 
                 // Create the object
-                spawnedObjects[i] = CreateObjectNoOffset(spawnedObject.ModelHash, spawnedObject.Location.X,
+                _spawnedObjects[i] = CreateObjectNoOffset(spawnedObject.ModelHash, spawnedObject.Location.X,
                     spawnedObject.Location.Y, spawnedObject.Location.Z, true, false, true);
 
-                SetEntityHeading(spawnedObjects[i], spawnedObject.Heading);
+                SetEntityHeading(_spawnedObjects[i], spawnedObject.Heading);
 
                 // Place object to ground
-                PlaceObjectOnGroundProperly(spawnedObjects[i]);
+                PlaceObjectOnGroundProperly(_spawnedObjects[i]);
 
                 // Freeze the object
-                FreezeEntityPosition(spawnedObjects[i], true);
+                FreezeEntityPosition(_spawnedObjects[i], true);
             }
         }
 
         public async Task SpawnCrashedCars()
         {
-            crashedCars = new Vehicle[scene.CrashedCars.Length];
-            for (var i = 0; i < scene.CrashedCars.Length; i++)
+            _crashedCars = new Vehicle[_scene.CrashedCars.Length];
+            for (var i = 0; i < _scene.CrashedCars.Length; i++)
             {
-                var crashedCar = scene.CrashedCars[i];
+                var crashedCar = _scene.CrashedCars[i];
 
                 // If the car should randomly spawn, make it a 50% chance
                 // TODO: This is not possible for now because the array length bug
@@ -158,40 +157,40 @@ namespace VehicleCollisions
                 }*/
 
                 // Spawn the actual vehicle
-                crashedCars[i] = await SpawnVehicle(crashedCar.Model, crashedCar.Location, crashedCar.Heading);
+                _crashedCars[i] = await SpawnVehicle(crashedCar.Model, crashedCar.Location, crashedCar.Heading);
 
-                var crashedCarHandle = crashedCars[i].Handle;
+                var crashedCarHandle = _crashedCars[i].Handle;
 
                 SetVehicleEngineOn(crashedCarHandle, true, true, false);
 
                 // Set the engine health
-                crashedCars[i].EngineHealth = crashedCar.EngineHealth;
+                _crashedCars[i].EngineHealth = crashedCar.EngineHealth;
 
                 // Rotate the car if we defined this
                 if (crashedCar.Rotation != null)
-                    SetEntityRotation(crashedCars[i].Handle, crashedCar.Rotation[0], crashedCar.Rotation[1],
+                    SetEntityRotation(_crashedCars[i].Handle, crashedCar.Rotation[0], crashedCar.Rotation[1],
                         crashedCar.Rotation[2], 1, true);
 
                 // Attach a blip
                 if (crashedCar.HasBlip)
                 {
-                    crashedCars[i].AttachBlip();
-                    crashedCars[i].AttachedBlip.Color = BlipColor.Blue;
+                    _crashedCars[i].AttachBlip();
+                    _crashedCars[i].AttachedBlip.Color = BlipColor.Blue;
                 }
 
                 // Randomly burst tires
                 if (crashedCar.ShouldRandomBurstTires)
                 {
-                    if (Utilities.RandomBool() && crashedCars[i].Wheels[0] != null) crashedCars[i].Wheels[0].Burst();
-                    if (Utilities.RandomBool() && crashedCars[i].Wheels[1] != null) crashedCars[i].Wheels[1].Burst();
-                    if (Utilities.RandomBool() && crashedCars[i].Wheels[2] != null) crashedCars[i].Wheels[2].Burst();
-                    if (Utilities.RandomBool() && crashedCars[i].Wheels[3] != null) crashedCars[i].Wheels[3].Burst();
+                    if (Utilities.RandomBool() && _crashedCars[i].Wheels[0] != null) _crashedCars[i].Wheels[0].Burst();
+                    if (Utilities.RandomBool() && _crashedCars[i].Wheels[1] != null) _crashedCars[i].Wheels[1].Burst();
+                    if (Utilities.RandomBool() && _crashedCars[i].Wheels[2] != null) _crashedCars[i].Wheels[2].Burst();
+                    if (Utilities.RandomBool() && _crashedCars[i].Wheels[3] != null) _crashedCars[i].Wheels[3].Burst();
                 }
 
                 // Randomly be damaged
                 if (crashedCar.ShouldRandomBeDamaged && Utilities.RandomBool())
                 {
-                    var damage = random.Next(99, 1000);
+                    var damage = Utilities.Between(99, 1000);
 
                     if (Utilities.RandomBool())
                         SetVehicleDamage(crashedCarHandle, -0.84f, 2.21f, 0.22f, damage, 50.0f, true);
@@ -214,7 +213,7 @@ namespace VehicleCollisions
                 // Be damaged
                 if (crashedCar.BeDamaged)
                 {
-                    var damage = random.Next(99, 1000);
+                    var damage = Utilities.Between(99, 1000);
                     if (Utilities.RandomBool())
                         SetVehicleDamage(crashedCarHandle, -0.84f, 2.21f, 0.22f, damage, 50.0f, true);
                     if (Utilities.RandomBool())
@@ -238,16 +237,16 @@ namespace VehicleCollisions
                 {
                     if (crashedCar.BlinkingLightsDirection == 0)
                     {
-                        SetVehicleIndicatorLights(crashedCars[i].Handle, 0, true);
-                        SetVehicleIndicatorLights(crashedCars[i].Handle, 1, true);
+                        SetVehicleIndicatorLights(_crashedCars[i].Handle, 0, true);
+                        SetVehicleIndicatorLights(_crashedCars[i].Handle, 1, true);
                     }
                     else if (crashedCar.BlinkingLightsDirection == 1)
                     {
-                        SetVehicleIndicatorLights(crashedCars[i].Handle, 1, true);
+                        SetVehicleIndicatorLights(_crashedCars[i].Handle, 1, true);
                     }
                     else if (crashedCar.BlinkingLightsDirection == 2)
                     {
-                        SetVehicleIndicatorLights(crashedCars[i].Handle, 0, true);
+                        SetVehicleIndicatorLights(_crashedCars[i].Handle, 0, true);
                     }
                 }
 
@@ -267,7 +266,7 @@ namespace VehicleCollisions
                         var driver = await SpawnPed(vehiclePed.Model, vehiclePed.Location);
 
                         // Put driver into vehicle
-                        driver.SetIntoVehicle(crashedCars[i], vehiclePed.Seat);
+                        driver.SetIntoVehicle(_crashedCars[i], vehiclePed.Seat);
 
                         // Set vehicle ped's health
                         SetEntityHealth(driver.Handle, vehiclePed.Health);
@@ -286,7 +285,7 @@ namespace VehicleCollisions
                     var trailer = await SpawnVehicle(crashedCar.AttachedTrailer.Model,
                         crashedCar.AttachedTrailer.Location, crashedCar.AttachedTrailer.Heading);
 
-                    AttachVehicleToTrailer(crashedCars[i].Handle, trailer.Handle, 50f);
+                    AttachVehicleToTrailer(_crashedCars[i].Handle, trailer.Handle, 50f);
 
                     if (crashedCar.AttachedTrailer.VehicleOnTrailer != null)
                     {
@@ -303,61 +302,60 @@ namespace VehicleCollisions
 
         public async Task SpawnCivilians()
         {
-            civilianPeds = new Ped[scene.CivilianPeds.Length];
-            for (var i = 0; i < scene.CivilianPeds.Length; i++)
+            _civilianPeds = new Ped[_scene.CivilianPeds.Length];
+            for (var i = 0; i < _scene.CivilianPeds.Length; i++)
             {
-                var civilian = scene.CivilianPeds[i];
+                var civilian = _scene.CivilianPeds[i];
 
-                civilianPeds[i] = await SpawnPed(civilian.Model, civilian.Location);
-                civilianPeds[i].AlwaysKeepTask = true;
+                _civilianPeds[i] = await SpawnPed(civilian.Model, civilian.Location);
+                _civilianPeds[i].AlwaysKeepTask = true;
 
-                civilianPeds[i].Weapons.Give(civilian.Weapon, 1, true, true);
+                _civilianPeds[i].Weapons.Give(civilian.Weapon, 1, true, true);
 
                 if (civilian.Invisible)
                 {
-                    civilianPeds[i].IsVisible = false;
-                    FreezeEntityPosition(civilianPeds[i].Handle, true);
+                    _civilianPeds[i].IsVisible = false;
+                    FreezeEntityPosition(_civilianPeds[i].Handle, true);
                 }
 
-                SetEntityHealth(civilianPeds[i].Handle, civilian.Health);
+                SetEntityHealth(_civilianPeds[i].Handle, civilian.Health);
 
                 if (civilian.AnimationLib != null)
                 {
                     RequestAnimDict(civilian.AnimationLib);
-                    civilianPeds[i].Task.PlayAnimation(civilian.AnimationLib, civilian.AnimationName);
+                    _civilianPeds[i].Task.PlayAnimation(civilian.AnimationLib, civilian.AnimationName);
                 }
 
                 if (civilian.Scenario != null)
-                {
-                    TaskStartScenarioInPlace(civilianPeds[i].Handle, civilian.Scenario, 0, true);
-                }
-                
+                    TaskStartScenarioInPlace(_civilianPeds[i].Handle, civilian.Scenario, 0, true);
+
                 if (civilian.HasBlip)
                 {
-                    civilianPeds[i].AttachBlip();
-                    civilianPeds[i].AttachedBlip.Color = BlipColor.Green;
+                    _civilianPeds[i].AttachBlip();
+                    _civilianPeds[i].AttachedBlip.Color = BlipColor.Green;
                 }
             }
         }
 
         public void RunNotifications()
         {
-            foreach (var notification in scene.Notifications()) ShowNotification($"[Dispatch] {notification}");
+            foreach (var notification in _scene.Notifications()) ShowNotification($"[Dispatch] {notification}");
         }
 
         public override void OnCancelBefore()
         {
             //Tick -= scene.RunAdditionalTasks;
-            
+
             try
             {
-                if (crashedCars.Length > 0)
+                if (_crashedCars.Length > 0)
                     // Remove crashed car blip
-                    foreach (var spawnedCar in crashedCars)
+                    foreach (var spawnedCar in _crashedCars)
                     {
-                        if (spawnedCar == null || spawnedCar.AttachedBlip == null) continue;
-
-                        spawnedCar.AttachedBlip?.Delete();
+                        if (spawnedCar != null && spawnedCar.AttachedBlip != null)
+                        {
+                            spawnedCar.AttachedBlip?.Delete(); 
+                        }
 
                         // Remove ped blip
                         foreach (var passenger in spawnedCar.Occupants)
@@ -375,30 +373,28 @@ namespace VehicleCollisions
 
             try
             {
-                if (civilianPeds.Length > 0)
+                if (_civilianPeds.Length > 0)
                     // Remove crashed car blip
-                    foreach (var spawnedCivilian in civilianPeds)
+                    foreach (var spawnedCivilian in _civilianPeds)
                     {
-                        if (spawnedCivilian == null || spawnedCivilian.AttachedBlip == null) continue;
-
-                        spawnedCivilian.AttachedBlip?.Delete();
-
-                        if (!spawnedCivilian.IsVisible)
+                        if (spawnedCivilian != null && spawnedCivilian.AttachedBlip != null)
                         {
-                            spawnedCivilian.Delete();
+                            spawnedCivilian.AttachedBlip?.Delete();;
                         }
+
+                        if (!spawnedCivilian.IsVisible) spawnedCivilian.Delete();
                     }
             }
             catch (Exception)
             {
                 // ignored
             }
-            
+
             try
             {
-                if (spawnedObjects.Length > 0)
+                if (_spawnedObjects.Length > 0)
                     // Clear out spawned cones
-                    foreach (var spawnedObject in spawnedObjects)
+                    foreach (var spawnedObject in _spawnedObjects)
                         Entity.FromHandle(spawnedObject).Delete();
             }
             catch (Exception)
@@ -408,9 +404,9 @@ namespace VehicleCollisions
 
             try
             {
-                if (policeCars.Length > 0)
+                if (_policeCars.Length > 0)
                     // Remove the on-scene cop cars (if any)
-                    foreach (var policeCar in policeCars)
+                    foreach (var policeCar in _policeCars)
                     {
                         if (policeCar == null) continue;
 
@@ -424,9 +420,9 @@ namespace VehicleCollisions
 
             try
             {
-                if (policePeds.Length > 0)
+                if (_policePeds.Length > 0)
                     // Remove the on-scene cop cars (if any)
-                    foreach (var policePed in policePeds)
+                    foreach (var policePed in _policePeds)
                     {
                         if (policePed == null) continue;
 
@@ -441,39 +437,36 @@ namespace VehicleCollisions
             try
             {
                 // Run the scene finish method and pass along peds, cars, etc.
-                scene.Finish();
+                _scene.Finish();
             }
             catch (Exception)
             {
                 // ignored
             }
         }
-        
+
         public async Task<Vehicle> _SpawnVehicle(VehicleHash vehicleHash,
             Vector3 location,
             float heading = 0.0f)
         {
-            Vehicle spawned = (Vehicle) await SpawnVehicle(vehicleHash, location, heading);
+            var spawned = await SpawnVehicle(vehicleHash, location, heading);
 
             return spawned;
         }
-        
-        public async Task<Ped> _SpawnPed( PedHash pedHash, Vector3 location, float heading = 0.0f)
+
+        public async Task<Ped> _SpawnPed(PedHash pedHash, Vector3 location, float heading = 0.0f)
         {
-            Ped spawned = (Ped) await SpawnPed(pedHash, location, heading);
+            var spawned = await SpawnPed(pedHash, location, heading);
 
             return spawned;
         }
-        
+
         public bool _IsCarInReach(Vehicle origin, Vehicle destination, float reach = 25f)
         {
-            float total = World.GetDistance( origin.Position, destination.Position);
+            var total = World.GetDistance(origin.Position, destination.Position);
 
-            if (total < reach)
-            {
-                return true;
-            }
-            
+            if (total < reach) return true;
+
             return false;
         }
     }

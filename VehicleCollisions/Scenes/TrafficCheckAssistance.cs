@@ -9,6 +9,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class TrafficCheckAssistance : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public int SpeedZone;
         public string Title => "Assistance with traffic control required";
         public string Description => "We need assistance with our traffic control.";
@@ -32,17 +34,17 @@ namespace VehicleCollisions.Scenes
                 .SetSirenActive(true)
                 .SetSirenSilent(true),
             new PoliceCar(new Vector3(1172.3f, 405.77f, 90.82f), 333.36f, VehicleHash.Police2),
-            new PoliceCar(new Vector3(1161.28f, 390.53f, 91.45f), 336.08f, VehicleHash.Polmav),
+            new PoliceCar(new Vector3(1161.28f, 390.53f, 91.45f), 336.08f, VehicleHash.Polmav)
         };
 
         public PolicePed[] PolicePeds => new[]
         {
             new PolicePed(new Vector3(1149.05f, 386.33f, 91.39f), 139.1f, PedUtilities.GetRandomCop())
                 .GiveWeapon(WeaponHash.Flare),
-            
+
             new PolicePed(new Vector3(1169.34f, 403.18f, 91.25f), 155.57f, PedUtilities.GetRandomCop())
                 .SetAnimation("facials@gen_male@base", "mood_talking_1"),
-            
+
             new PolicePed(new Vector3(1168.63f, 400.5f, 91.31f), 344.94f, PedUtilities.GetRandomCop())
                 .SetAnimation("facials@gen_male@base", "mood_talking_1")
         };
@@ -57,7 +59,7 @@ namespace VehicleCollisions.Scenes
             new ObjectModel(new Vector3(1149.65f, 385.87f, 91.35f), 3320760085, 319.61f),
             new ObjectModel(new Vector3(1149.04f, 387.5f, 91.41f), 3320760085, 319.61f),
             new ObjectModel(new Vector3(1148.55f, 389.58f, 91.47f), 3320760085, 319.61f),
-            new ObjectModel(new Vector3(1148.35f, 391.78f, 91.54f), 3320760085, 319.61f),
+            new ObjectModel(new Vector3(1148.35f, 391.78f, 91.54f), 3320760085, 319.61f)
         };
 
         public CrashedVehicle[] CrashedCars => new CrashedVehicle[]
@@ -67,8 +69,7 @@ namespace VehicleCollisions.Scenes
         public CivilianPed[] CivilianPeds => new[]
         {
             new CivilianPed(new Vector3(1148.55f, 389.58f, 91.47f), 3.88f, PedUtilities.GetRandomPed())
-                .SetInvisible(true),
-
+                .SetInvisible(true)
         };
 
         public void Accept()
@@ -88,9 +89,9 @@ namespace VehicleCollisions.Scenes
             RemoveSpeedZone(SpeedZone);
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
-            
+            return null;
         }
     }
 }

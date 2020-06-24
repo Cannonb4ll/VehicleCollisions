@@ -8,6 +8,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class SevereCrashWithMilitaryConvoy : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         private Ped[] SpawnedCivilianPeds;
         private Vehicle[] SpawnedCrashedCars;
         public string Title => "Severe crash with military convoy";
@@ -115,8 +117,9 @@ namespace VehicleCollisions.Scenes
             }
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }

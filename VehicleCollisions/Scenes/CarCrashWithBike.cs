@@ -8,6 +8,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class CarCrashWithBike : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public int AccidentIndex;
 
         public Vector3[] AccidentLocations =
@@ -28,7 +30,7 @@ namespace VehicleCollisions.Scenes
             new Vector3(-719.87f, -2390.4f, 14.76f),
             new Vector3(428.12f, 297.9f, 103.0f),
             new Vector3(-1073.6f, 389.89f, 68.95f),
-            new Vector3(-2166.56f, -337.01f, 13.2f),
+            new Vector3(-2166.56f, -337.01f, 13.2f)
         };
 
         public Vector3 RandomCoordinates;
@@ -44,7 +46,8 @@ namespace VehicleCollisions.Scenes
 
         private static Random rnd => new Random();
 
-        public Vector3 BikeCoordinates => new Vector3(Coordinates.X + Utilities.Between(1, 10), Coordinates.Y + Utilities.Between(1, 10),
+        public Vector3 BikeCoordinates => new Vector3(Coordinates.X + Utilities.Between(1, 10),
+            Coordinates.Y + Utilities.Between(1, 10),
             Coordinates.Z);
 
         public string Title => "Car crash with bike";
@@ -97,7 +100,8 @@ namespace VehicleCollisions.Scenes
         public CivilianPed[] CivilianPeds => new[]
         {
             new CivilianPed(
-                    new Vector3(BikeCoordinates.X + Utilities.Between(1, 5), BikeCoordinates.Y + Utilities.Between(1, 5),
+                    new Vector3(BikeCoordinates.X + Utilities.Between(1, 5),
+                        BikeCoordinates.Y + Utilities.Between(1, 5),
                         BikeCoordinates.Z), Utilities.Between(0, 360), PedUtilities.GetRandomPed())
                 .ShouldHaveBlip(true)
                 .SetHealth(0)
@@ -115,9 +119,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
-            
+            return null;
         }
     }
 }

@@ -7,6 +7,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class TrafficFightWithCarCrash : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public string Title => "Traffic fight with car crash";
 
         public string Description =>
@@ -82,8 +84,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }

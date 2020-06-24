@@ -8,11 +8,14 @@ namespace VehicleCollisions.Scenes
 {
     internal class BigAccidentOnBridge : IScene
     {
+        public bool HasAdditionalTasks => false;
+        
         public Vector3 RandomCoordinates;
 
         public BigAccidentOnBridge()
         {
-            RandomCoordinates = new Vector3(Utilities.Between(510, 807), Utilities.Between(-861, -841), Utilities.Between(40, 42));
+            RandomCoordinates = new Vector3(Utilities.Between(510, 807), Utilities.Between(-861, -841),
+                Utilities.Between(40, 42));
         }
 
 
@@ -66,7 +69,8 @@ namespace VehicleCollisions.Scenes
                         .ShouldRandomlySpawn(true)
                 }),
             new CrashedVehicle(
-                    new Vector3(RandomCoordinates.X + Utilities.Between(3, 6), RandomCoordinates.Y + Utilities.Between(3, 6),
+                    new Vector3(RandomCoordinates.X + Utilities.Between(3, 6),
+                        RandomCoordinates.Y + Utilities.Between(3, 6),
                         RandomCoordinates.Z), Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
                 .SetEngineHealth(0)
                 .ShouldHaveBlip(true)
@@ -82,7 +86,8 @@ namespace VehicleCollisions.Scenes
                         .ShouldRandomlySpawn(true)
                 }),
             new CrashedVehicle(
-                    new Vector3(RandomCoordinates.X + Utilities.Between(3, 6), RandomCoordinates.Y + Utilities.Between(3, 6),
+                    new Vector3(RandomCoordinates.X + Utilities.Between(3, 6),
+                        RandomCoordinates.Y + Utilities.Between(3, 6),
                         RandomCoordinates.Z), Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
                 .SetEngineHealth(0)
                 .ShouldHaveBlip(true)
@@ -115,8 +120,9 @@ namespace VehicleCollisions.Scenes
         {
         }
 
-        public async Task RunAdditionalTasks()
+        public Task RunAdditionalTasks()
         {
+            return null;
         }
     }
 }
