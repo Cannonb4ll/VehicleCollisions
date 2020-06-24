@@ -9,7 +9,7 @@
             _sceneNumber = sceneNumber;
         }
 
-        public IScene GetScene()
+        public IScene GetScene(VehicleCollisions vehicleCollisions)
         {
             switch (_sceneNumber)
             {
@@ -30,7 +30,7 @@
                 case 8:
                     return new CarDroveThroughRoadBlock();
                 case 9:
-                    return new MilitaryTransportEngineFailure();
+                    return new MilitaryTransportEngineFailure(vehicleCollisions);
                 case 10:
                     return new CarCrashWithBike();
                 default:

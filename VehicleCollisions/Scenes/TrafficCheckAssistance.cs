@@ -3,6 +3,7 @@ using CitizenFX.Core;
 using VehicleCollisions.Entities;
 using VehicleCollisions.Utils;
 using static CitizenFX.Core.Native.API;
+using static CitizenFX.Core.UI.Screen;
 
 namespace VehicleCollisions.Scenes
 {
@@ -12,7 +13,7 @@ namespace VehicleCollisions.Scenes
         public string Title => "Assistance with traffic control required";
         public string Description => "We need assistance with our traffic control.";
         public int ResponseCode => 1;
-        public float StartDistance => 120f;
+        public float StartDistance => 35f;
 
         public string[] Notifications()
         {
@@ -37,7 +38,13 @@ namespace VehicleCollisions.Scenes
         public PolicePed[] PolicePeds => new[]
         {
             new PolicePed(new Vector3(1149.05f, 386.33f, 91.39f), 139.1f, PedUtilities.GetRandomCop())
-                .GiveWeapon(WeaponHash.Flare)
+                .GiveWeapon(WeaponHash.Flare),
+            
+            new PolicePed(new Vector3(1169.34f, 403.18f, 91.25f), 155.57f, PedUtilities.GetRandomCop())
+                .SetAnimation("facials@gen_male@base", "mood_talking_1"),
+            
+            new PolicePed(new Vector3(1168.63f, 400.5f, 91.31f), 344.94f, PedUtilities.GetRandomCop())
+                .SetAnimation("facials@gen_male@base", "mood_talking_1")
         };
 
         public ObjectModel[] ObjectModels => new[]
@@ -48,7 +55,9 @@ namespace VehicleCollisions.Scenes
             new ObjectModel(new Vector3(1158.93f, 402.97f, 91.26f), 939377219),
             new ObjectModel(new Vector3(1164.12f, 408.57f, 91.1f), 939377219),
             new ObjectModel(new Vector3(1149.65f, 385.87f, 91.35f), 3320760085, 319.61f),
-            new ObjectModel(new Vector3(1149.04f, 387.5f, 91.41f), 3320760085, 319.61f)
+            new ObjectModel(new Vector3(1149.04f, 387.5f, 91.41f), 3320760085, 319.61f),
+            new ObjectModel(new Vector3(1148.55f, 389.58f, 91.47f), 3320760085, 319.61f),
+            new ObjectModel(new Vector3(1148.35f, 391.78f, 91.54f), 3320760085, 319.61f),
         };
 
         public CrashedVehicle[] CrashedCars => new CrashedVehicle[]
@@ -57,12 +66,9 @@ namespace VehicleCollisions.Scenes
 
         public CivilianPed[] CivilianPeds => new[]
         {
-            new CivilianPed(new Vector3(-1149.18f, -391.75f, 91.52f), 3.88f, PedUtilities.GetRandomPed())
+            new CivilianPed(new Vector3(1148.55f, 389.58f, 91.47f), 3.88f, PedUtilities.GetRandomPed())
                 .SetInvisible(true),
-            new CivilianPed(new Vector3(-1150.95f, -394.03f, 91.49f), 3.88f, PedUtilities.GetRandomPed())
-                .SetInvisible(true),
-            new CivilianPed(new Vector3(-1148.91f, -384.68f, 91.34f), 3.88f, PedUtilities.GetRandomPed())
-                .SetInvisible(true)
+
         };
 
         public void Accept()
@@ -72,6 +78,9 @@ namespace VehicleCollisions.Scenes
 
         public void Start(Ped[] CivilianPeds = null, Vehicle[] CrashedCars = null)
         {
+            ShowSubtitle(
+                "[Traffic Officer] Thank you for your assistance. We have setup a speedzone for 5MPH, please start scanning vehicles.",
+                12500);
         }
 
         public void Finish()

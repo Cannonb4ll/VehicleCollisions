@@ -58,9 +58,12 @@ namespace VehicleCollisions.Scenes
 
         private Ped[] SpawnedCivilianPeds;
         private Vehicle[] SpawnedCrashedCars;
+        private VehicleCollisions _vehicleCollisions;
 
-        public MilitaryTransportEngineFailure()
+        public MilitaryTransportEngineFailure(VehicleCollisions vehicleCollisions)
         {
+            _vehicleCollisions = vehicleCollisions;
+            
             // Get a random accident
             AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
 
@@ -159,6 +162,10 @@ namespace VehicleCollisions.Scenes
             {
                 CarFixed = true;
 
+                MilitaryGetsAttacked();
+
+                return;
+                
                 // 15% chance the mechanic gets overwhelmed
                 if (Utilities.RandomBool(15))
                 {
@@ -201,11 +208,25 @@ namespace VehicleCollisions.Scenes
         
         public async void MilitaryGetsAttacked()
         {
+            ShowNotification("[Dispatch] We've received a call a suspicious vehicle is heading towards your location.");
+            ShowNotification("[Dispatch] We marked the vehicle on your map, check out the vehicle.");
+            
             Vector3 spawnLocationBadGuys =
                 World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(Utilities.Between(100, 700), Utilities.Between(100, 700), 0)));
 
+            Vehicle badGuyVehicle = await _vehicleCollisions._SpawnVehicle(VehicleHash.Adder, spawnLocationBadGuys, 100f);
 
-            //Vehicle badGuyVehicle = await CalloutWrapper.SpawnVehicle(crashedCar.Model, crashedCar.Location, crashedCar.Heading);
+            badGuyVehicle.AttachBlip();
+
+            var driver = await _vehicleCollisions._SpawnPed(PedUtilities.GetRandomPed(), spawnLocationBadGuys);
+            
+            driver.SetIntoVehicle(badGuyVehicle, VehicleSeat.Driver);
+            
+            driver.Task.DriveTo(badGuyVehicle, new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z), 25f, 100f, 0);
+            
+            driver.Weapons.Give(WeaponHash.MicroSMG, 100, true, true);
+            
+            driver.Task.VehicleShootAtPed(SpawnedCivilianPeds[0]);
         }
 
         public async void TheTruckIsFixedAndCanDriveAway()

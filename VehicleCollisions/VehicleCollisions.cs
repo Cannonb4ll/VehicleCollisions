@@ -19,11 +19,12 @@ namespace VehicleCollisions
         private readonly Random random = new Random();
         private readonly IScene scene;
         private int[] spawnedObjects;
+        
 
         public VehicleCollisions()
         {
-            scene = new SceneFactory(Utilities.Between(1, 10)).GetScene();
-            //scene = new SceneFactory(9).GetScene();
+            //scene = new SceneFactory(Utilities.Between(1, 10)).GetScene();
+            scene = new SceneFactory(9).GetScene(this);
 
             InitBase(new Vector3(scene.Coordinates.X, scene.Coordinates.Y, scene.Coordinates.Z));
 
@@ -35,7 +36,7 @@ namespace VehicleCollisions
 
         public override async Task Init()
         {
-            // When user accepts continue
+            // When user accepts continuef
             OnAccept();
 
             // Spawn the on-scene cop car (if any)
@@ -96,11 +97,21 @@ namespace VehicleCollisions
                 policePeds[i] = await SpawnPed(policePed.Model, policePed.Location);
                 policePeds[i].AlwaysKeepTask = true;
                 policePeds[i].BlockPermanentEvents = true;
-                policePeds[i].Task.PlayAnimation("anim@amb@waving@female", "air_wave");
 
                 policePeds[i].Weapons.Give(policePed.Weapon, 1, true, true);
 
                 SetEntityHeading(policePeds[i].Handle, policePed.Heading);
+                
+                if (policePed.AnimationLib != null)
+                {
+                    RequestAnimDict(policePed.AnimationLib);
+                    policePeds[i].Task.PlayAnimation(policePed.AnimationLib, policePed.AnimationName);
+                }
+                
+                if (policePed.Scenario != null)
+                {
+                    TaskStartScenarioInPlace(policePeds[i].Handle, policePed.Scenario, 0, true);
+                }
             }
         }
 
@@ -292,6 +303,7 @@ namespace VehicleCollisions
 
         public async Task SpawnCivilians()
         {
+            GetDistance
             civilianPeds = new Ped[scene.CivilianPeds.Length];
             for (var i = 0; i < scene.CivilianPeds.Length; i++)
             {
@@ -302,7 +314,11 @@ namespace VehicleCollisions
 
                 civilianPeds[i].Weapons.Give(civilian.Weapon, 1, true, true);
 
-                if (civilian.Invisible) civilianPeds[i].IsVisible = false;
+                if (civilian.Invisible)
+                {
+                    civilianPeds[i].IsVisible = false;
+                    FreezeEntityPosition(civilianPeds[i].Handle, true);
+                }
 
                 SetEntityHealth(civilianPeds[i].Handle, civilian.Health);
 
@@ -313,8 +329,10 @@ namespace VehicleCollisions
                 }
 
                 if (civilian.Scenario != null)
+                {
                     TaskStartScenarioInPlace(civilianPeds[i].Handle, civilian.Scenario, 0, true);
-
+                }
+                
                 if (civilian.HasBlip)
                 {
                     civilianPeds[i].AttachBlip();
@@ -356,6 +374,27 @@ namespace VehicleCollisions
                 // ignored
             }
 
+            try
+            {
+                if (civilianPeds.Length > 0)
+                    // Remove crashed car blip
+                    foreach (var spawnedCivilian in civilianPeds)
+                    {
+                        if (spawnedCivilian == null || spawnedCivilian.AttachedBlip == null) continue;
+
+                        spawnedCivilian.AttachedBlip?.Delete();
+
+                        if (!spawnedCivilian.IsVisible)
+                        {
+                            spawnedCivilian.Delete();
+                        }
+                    }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+            
             try
             {
                 if (spawnedObjects.Length > 0)
@@ -409,6 +448,22 @@ namespace VehicleCollisions
             {
                 // ignored
             }
+        }
+        
+        public async Task<Vehicle> _SpawnVehicle(VehicleHash vehicleHash,
+            Vector3 location,
+            float heading = 0.0f)
+        {
+            Vehicle spawned = (Vehicle) await SpawnVehicle(vehicleHash, location, heading);
+
+            return spawned;
+        }
+        
+        public async Task<Ped> _SpawnPed( PedHash pedHash, Vector3 location, float heading = 0.0f)
+        {
+            Ped spawned = (Ped) await SpawnPed(pedHash, location, heading);
+
+            return spawned;
         }
     }
 }
