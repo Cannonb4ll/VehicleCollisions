@@ -4,15 +4,15 @@
 
 ## List of callouts
 
-* Bike crashed into car
+* Bike crashed into car (17 different locations)
 * Traffic light malfunction with crash
 * Severe crash with military convoy
 * Traffic fight with crash
-* Military transport problems
+* Military transport problems (10 different locations, 4 different outcomes)
 * Traffic check assistance
 * Car crashed into church
 * Car crashed into sewers
-* Big accident on bridge
+* Big accident on bridge (Unlimited different locations stretched over a long road)
 
 Each callout also brings its own dynamics, which I am of course still working on. The Military transport problems has the most dynamics at this moment.
 
