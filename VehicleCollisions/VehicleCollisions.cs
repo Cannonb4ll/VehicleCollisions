@@ -23,7 +23,7 @@ namespace VehicleCollisions
         public VehicleCollisions()
         {
             scene = new SceneFactory(Utilities.Between(1, 10)).GetScene();
-            //scene = new SceneFactory(10).GetScene();
+            //scene = new SceneFactory(9).GetScene();
 
             InitBase(new Vector3(scene.Coordinates.X, scene.Coordinates.Y, scene.Coordinates.Z));
 
@@ -353,6 +353,7 @@ namespace VehicleCollisions
             }
             catch (Exception e)
             {
+                // ignored
             }
 
             try
@@ -364,6 +365,7 @@ namespace VehicleCollisions
             }
             catch (Exception e)
             {
+                // ignored
             }
 
             try
@@ -379,6 +381,7 @@ namespace VehicleCollisions
             }
             catch (Exception e)
             {
+                // ignored
             }
 
             try
@@ -394,6 +397,7 @@ namespace VehicleCollisions
             }
             catch (Exception e)
             {
+                // ignored
             }
 
             try
@@ -403,6 +407,7 @@ namespace VehicleCollisions
             }
             catch (Exception e)
             {
+                // ignored
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CalloutAPI;
 using CitizenFX.Core;
 using VehicleCollisions.Entities;
 using VehicleCollisions.Utils;
@@ -28,7 +29,10 @@ namespace VehicleCollisions.Scenes
             141.23f,
             85.29f,
             302.37f,
-            17.57f
+            17.57f,
+            316.11f,
+            282.09f,
+            27.12f
         };
 
         public int AccidentIndex;
@@ -41,7 +45,10 @@ namespace VehicleCollisions.Scenes
             new Vector3(727.63f, 76.22f, 81.87f),
             new Vector3(629.17f, -2041.29f, 28.86f),
             new Vector3(1389.26f, -1109.17f, 52.51f),
-            new Vector3(-1949.83f, 273.31f, 85.79f)
+            new Vector3(-1949.83f, 273.31f, 85.79f),
+            new Vector3(-458.47f, -2886.79f, 6.0f),
+            new Vector3(1000.01f, -2599.96f, 42.95f),
+            new Vector3(1008.78f, -843.24f, 31.76f),
         };
 
         private int CalloutStarted;
@@ -136,14 +143,11 @@ namespace VehicleCollisions.Scenes
             ShowSubtitle(
                 "[Military officer] I am trying to fix this truck, please guard us while I fix this piece of junk",
                 12500);
-
-            Debug.WriteLine($"It will take {CarFixingTime} ms");
         }
 
         public void Finish()
         {
-            // If he wasn't in the car, then do so
-            if (!SpawnedCivilianPeds[0].IsInVehicle()) SpawnedCivilianPeds[0].Task.EnterVehicle(SpawnedCrashedCars[0]);
+
         }
 
         public async Task RunAdditionalTasks()
@@ -151,11 +155,18 @@ namespace VehicleCollisions.Scenes
             if (Game.GameTime - CalloutStarted < CarFixingTime) return;
 
             // Code below here wont be executed unless after 15 seconds
-
             if (!CarFixed)
             {
                 CarFixed = true;
 
+                // 15% chance the mechanic gets overwhelmed
+                if (Utilities.RandomBool(15))
+                {
+                    MechanicGetsOverWhelmedByFumes();
+
+                    return;
+                }
+                
                 // 15% chance it catches on fire
                 if (Utilities.RandomBool(15))
                 {
@@ -177,6 +188,24 @@ namespace VehicleCollisions.Scenes
             SetVehicleEngineHealth(SpawnedCrashedCars[0].Handle, -5);
 
             SpawnedCivilianPeds[0].Task.FleeFrom(SpawnedCrashedCars[0].Driver);
+        }
+        
+        public async void MechanicGetsOverWhelmedByFumes()
+        {
+            ShowSubtitle("[Military officer] Ooof... These fumes are not good, I do not feel well..", 10000);
+
+            await BaseScript.Delay(2000);
+
+            SetEntityHealth(SpawnedCivilianPeds[0].Handle, 0);
+        }
+        
+        public async void MilitaryGetsAttacked()
+        {
+            Vector3 spawnLocationBadGuys =
+                World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(Utilities.Between(100, 700), Utilities.Between(100, 700), 0)));
+
+
+            //Vehicle badGuyVehicle = await CalloutWrapper.SpawnVehicle(crashedCar.Model, crashedCar.Location, crashedCar.Heading);
         }
 
         public async void TheTruckIsFixedAndCanDriveAway()
@@ -203,7 +232,7 @@ namespace VehicleCollisions.Scenes
 
             // Drive to fort zancudo
             SpawnedCrashedCars[0].Driver.Task
-                .DriveTo(SpawnedCrashedCars[0], new Vector3(-2333.18f, 3406.62f, 30.21f), 25f, 100f);
+                .DriveTo(SpawnedCrashedCars[0], new Vector3(-2333.18f, 3406.62f, 30.21f), 25f, 100f, 786603);
 
             // Remove blip
             SpawnedCrashedCars[0].AttachedBlip?.Delete();

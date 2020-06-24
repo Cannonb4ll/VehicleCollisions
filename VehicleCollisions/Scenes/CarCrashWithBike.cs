@@ -25,7 +25,10 @@ namespace VehicleCollisions.Scenes
             new Vector3(208.11f, -1136.59f, 29.33f),
             new Vector3(-24.11f, -1620.57f, 29.29f),
             new Vector3(733.44f, -2469.09f, 20.21f),
-            new Vector3(-719.87f, -2390.4f, 14.76f)
+            new Vector3(-719.87f, -2390.4f, 14.76f),
+            new Vector3(428.12f, 297.9f, 103.0f),
+            new Vector3(-1073.6f, 389.89f, 68.95f),
+            new Vector3(-2166.56f, -337.01f, 13.2f),
         };
 
         public Vector3 RandomCoordinates;
