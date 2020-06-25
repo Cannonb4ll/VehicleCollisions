@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CalloutAPI;
 using CitizenFX.Core;
+using FivePD.API;
 using VehicleCollisions.Scenes;
-using VehicleCollisions.Utils;
 using static CitizenFX.Core.Native.API;
 using static CitizenFX.Core.UI.Screen;
+using Utilities = VehicleCollisions.Utils.Utilities;
 
 namespace VehicleCollisions
 {
-    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.0.0", Probability.Medium)]
+    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.0.0")]
     public class VehicleCollisions : Callout
     {
         private readonly IScene _scene;
@@ -24,7 +24,7 @@ namespace VehicleCollisions
             _scene = new SceneFactory(Utilities.Between(1, 10)).GetScene(this);
             //scene = new SceneFactory(2).GetScene(this);
 
-            InitBase(new Vector3(_scene.Coordinates.X, _scene.Coordinates.Y, _scene.Coordinates.Z));
+            InitInfo(new Vector3(_scene.Coordinates.X, _scene.Coordinates.Y, _scene.Coordinates.Z));
 
             ShortName = _scene.Title;
             CalloutDescription = _scene.Description;
@@ -32,10 +32,10 @@ namespace VehicleCollisions
             StartDistance = _scene.StartDistance;
         }
 
-        public override async Task Init()
+        public override async Task OnAccept()
         {
             // When user accepts, continue
-            OnAccept();
+            InitBlip();
 
             // Spawn the on-scene cop car (if any)
             await SpawnOnSceneCopCars();

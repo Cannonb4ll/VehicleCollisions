@@ -32,11 +32,11 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="CalloutAPI.net, Version=0.6.4.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\..\Desktop\fivepd libs\CalloutAPI.net.dll</HintPath>
-        </Reference>
         <Reference Include="CitizenFX.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\..\Desktop\fivepd libs\CitizenFX.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="FivePD.net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\..\Desktop\fivepd libs\FivePD.net.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
