@@ -344,7 +344,10 @@ namespace VehicleCollisions
 
         public override void OnCancelBefore()
         {
-            //Tick -= scene.RunAdditionalTasks;
+            if (_scene.HasAdditionalTasks)
+            {
+                Tick -= _scene.RunAdditionalTasks;
+            }
 
             try
             {
