@@ -21,7 +21,7 @@ namespace VehicleCollisions.Scenes
 
         public Vector3 Coordinates => new Vector3(0, 0, 0);
 
-        public PoliceCar[] PoliceCars => new PoliceCar[]
+        public PoliceCar[] EmergencyCars => new PoliceCar[]
         {
         };
 

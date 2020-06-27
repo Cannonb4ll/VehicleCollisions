@@ -15,7 +15,7 @@ namespace VehicleCollisions
         private readonly IScene _scene;
         private Ped[] _civilianPeds;
         private Vehicle[] _crashedCars;
-        private Vehicle[] _policeCars;
+        private Vehicle[] _emergencyCars;
         private Ped[] _policePeds;
         private int[] _spawnedObjects;
         
@@ -38,7 +38,7 @@ namespace VehicleCollisions
             InitBlip();
 
             // Spawn the on-scene cop car (if any)
-            await SpawnOnSceneCopCars();
+            await SpawnOnSceneEmergencyCars();
 
             // Spawn the on-scene ped cops
             await SpawnOnScenePedCops();
@@ -72,19 +72,19 @@ namespace VehicleCollisions
             }
         }
 
-        public async Task SpawnOnSceneCopCars()
+        public async Task SpawnOnSceneEmergencyCars()
         {
-            _policeCars = new Vehicle[_scene.PoliceCars.Length];
-            for (var i = 0; i < _scene.PoliceCars.Length; i++)
+            _emergencyCars = new Vehicle[_scene.EmergencyCars.Length];
+            for (var i = 0; i < _scene.EmergencyCars.Length; i++)
             {
-                var policeCar = _scene.PoliceCars[i];
+                var emergencyCar = _scene.EmergencyCars[i];
 
-                _policeCars[i] = await SpawnVehicle(policeCar.Model, policeCar.Location, policeCar.Heading);
+                _emergencyCars[i] = await SpawnVehicle(emergencyCar.Model, emergencyCar.Location, emergencyCar.Heading);
 
-                if (policeCar.SirenActive) _policeCars[i].IsSirenActive = true;
-                if (policeCar.SirenSilent) _policeCars[i].IsSirenSilent = true;
+                if (emergencyCar.SirenActive) _emergencyCars[i].IsSirenActive = true;
+                if (emergencyCar.SirenSilent) _emergencyCars[i].IsSirenSilent = true;
 
-                if (policeCar.TrunkOpen) SetVehicleDoorOpen(_policeCars[i].Handle, 5, false, false);
+                if (emergencyCar.TrunkOpen) SetVehicleDoorOpen(_emergencyCars[i].Handle, 5, false, false);
             }
         }
 
@@ -407,9 +407,9 @@ namespace VehicleCollisions
 
             try
             {
-                if (_policeCars.Length > 0)
+                if (_emergencyCars.Length > 0)
                     // Remove the on-scene cop cars (if any)
-                    foreach (var policeCar in _policeCars)
+                    foreach (var policeCar in _emergencyCars)
                     {
                         if (policeCar == null) continue;
 

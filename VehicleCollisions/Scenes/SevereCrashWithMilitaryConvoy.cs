@@ -33,7 +33,7 @@ namespace VehicleCollisions.Scenes
         public Vector3 Coordinates => new Vector3(-1777, -677, -10);
 
         // Define the on-scene police cars (if any)
-        public PoliceCar[] PoliceCars => new[]
+        public PoliceCar[] EmergencyCars => new[]
         {
             new PoliceCar(new Vector3(-1777f, -655f, 10f), 290f, VehicleHash.Police)
                 .SetSirenActive(true)
