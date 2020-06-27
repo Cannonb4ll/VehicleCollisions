@@ -36,8 +36,7 @@ namespace VehicleCollisions.Scenes
         public HighwayAccident()
         {
             // Get a random accident
-            //AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
-            AccidentIndex = 14;
+            AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
 
             // Get the random accident coordinates
             RandomCoordinates = AccidentLocations[AccidentIndex];

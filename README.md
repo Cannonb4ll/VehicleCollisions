@@ -14,6 +14,8 @@
 * Car crashed into sewers
 * Big accident on bridge (Unlimited different locations stretched over a long road)
 * Crash with emergency services
+* Highway accidents (15 different locations)
+* Car crash with fire (4 different locations)
 
 Each callout also brings its own dynamics, which I am of course still working on. The Military transport problems has the most dynamics at this moment.
 

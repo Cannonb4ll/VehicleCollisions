@@ -1,4 +1,6 @@
-﻿namespace VehicleCollisions.Scenes
+﻿using VehicleCollisions.Utils;
+
+namespace VehicleCollisions.Scenes
 {
     public class SceneFactory
     {
@@ -6,8 +8,7 @@
 
         public SceneFactory()
         {
-            _sceneNumber = 13;
-            //_sceneNumber = Utilities.Between(1, 13);
+            _sceneNumber = Utilities.Between(1, 13);
         }
 
         public IScene GetScene(VehicleCollisions vehicleCollisions)
