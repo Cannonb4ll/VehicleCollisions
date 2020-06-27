@@ -43,7 +43,7 @@ namespace VehicleCollisions.Scenes
         };
 
         // Define the on-scene police officers (if any)
-        public PolicePed[] PolicePeds => new PolicePed[]
+        public EmergencyPed[] EmergencyPeds => new EmergencyPed[]
         {
         };
 

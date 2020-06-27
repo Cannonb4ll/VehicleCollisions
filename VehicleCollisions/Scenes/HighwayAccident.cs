@@ -2,6 +2,7 @@
 using CitizenFX.Core;
 using VehicleCollisions.Entities;
 using VehicleCollisions.Utils;
+using static CitizenFX.Core.UI.Screen;
 
 namespace VehicleCollisions.Scenes
 {
@@ -18,6 +19,14 @@ namespace VehicleCollisions.Scenes
             new Vector3(-419.26f, -748.6f, 37.08f),
             new Vector3(-154.8f, -532.45f, 28.83f),
             new Vector3(20.39f, -491.75f, 34.08f),
+            new Vector3(679.49f, -155.62f, 49.31f),
+            new Vector3(419.1f, -557.07f, 28.75f),
+            new Vector3(992.14f, 259.94f, 81.08f),
+            new Vector3(1309.84f, 598.86f, 80.06f),
+            new Vector3(1003.83f, -852.09f, 32.04f),
+            new Vector3(615.5f, -2500.8f, 16.97f),
+            new Vector3(-750.2f, -2158.7f, 14.35f),
+            new Vector3(-612.95f, -1733.07f, 37.43f),
         };
         
         public Vector3 RandomCoordinates;
@@ -27,26 +36,27 @@ namespace VehicleCollisions.Scenes
         {
             // Get a random accident
             //AccidentIndex = Utilities.Between(0, AccidentLocations.Length);
-            AccidentIndex = 4;
+            AccidentIndex = 12;
             
             // Get the random accident coordinates
             RandomCoordinates = AccidentLocations[AccidentIndex];
             
             // Try to get a location on the road for a cop car, this is not accurate and can place the cop car at a really weird location
             PoliceCarCoordinates =
-                World.GetNextPositionOnStreet(new Vector3(RandomCoordinates.X + Utilities.Between(0, 5), RandomCoordinates.Y  + Utilities.Between(0, 5), RandomCoordinates.Z));
+                World.GetNextPositionOnStreet(new Vector3(RandomCoordinates.X + Utilities.Between(5, 10), RandomCoordinates.Y  + Utilities.Between(5, 10), RandomCoordinates.Z));
         }
 
         public string Title => "Crash on the highway";
         public string Description => "We've received a call about a crash on the highway.";
         public int ResponseCode => 3;
-        public float StartDistance => 120f;
+        public float StartDistance => 25f;
 
         public string[] Notifications()
         {
             return new string[]
             {
                 "We've received a call about a crash on the highway.",
+                "One of your colleagues is already on-scene but inexperienced with traffic control.",
                 "Head over there, manage traffic, evaluate the situation and take care of it."
             };
         }
@@ -56,13 +66,15 @@ namespace VehicleCollisions.Scenes
 
         public EmergencyCar[] EmergencyCars => new EmergencyCar[]
         {
-            new EmergencyCar(PoliceCarCoordinates, 0f, VehicleUtilities.GetRandomCopCar())
+            new EmergencyCar(PoliceCarCoordinates, Utilities.Between(0, 360), VehicleUtilities.GetRandomCopCar())
                 .SetSirenActive(true)
                 .SetSirenSilent(true),
         };
 
-        public PolicePed[] PolicePeds => new PolicePed[]
+        public EmergencyPed[] EmergencyPeds => new EmergencyPed[]
         {
+            new EmergencyPed(new Vector3(PoliceCarCoordinates.X + Utilities.Between(1,3), PoliceCarCoordinates.Y + Utilities.Between(1,3), PoliceCarCoordinates.Z), Utilities.Between(0, 360), PedUtilities.GetRandomCop())
+                .GiveWeapon(WeaponHash.Flare),
         };
 
         public ObjectModel[] ObjectModels => new ObjectModel[]
@@ -100,6 +112,7 @@ namespace VehicleCollisions.Scenes
                 .ShouldBeDamaged(true)
                 .ShouldRandomlySpawn(true)
                 .ShouldRandomlyBurstTires(true)
+                .SetDoorsOpen(Utilities.RandomBool(), Utilities.RandomBool(), Utilities.RandomBool(), Utilities.RandomBool(), Utilities.RandomBool())
                 .SetRotation(new[] {0f, Utilities.Between(0, 180), 0f}),
             
             new CrashedVehicle(new Vector3(Coordinates.X + Utilities.Between(3,5), Coordinates.Y + Utilities.Between(3,5), Coordinates.Z), Utilities.Between(0, 360), VehicleUtilities.GetSafeRandomVehicle())
@@ -116,6 +129,7 @@ namespace VehicleCollisions.Scenes
                 .ShouldBeDamaged(true)
                 .ShouldRandomlySpawn(true)
                 .ShouldRandomlyBurstTires(true)
+                .SetDoorsOpen(Utilities.RandomBool(), Utilities.RandomBool(), Utilities.RandomBool(), Utilities.RandomBool(), Utilities.RandomBool())
                 .SetRotation(new[] {0f, Utilities.Between(0, 180), 0f}),
         };
 
@@ -129,6 +143,9 @@ namespace VehicleCollisions.Scenes
 
         public void Start(Ped[] CivilianPeds = null, Vehicle[] CrashedCars = null)
         {
+            ShowSubtitle(
+                "[Police cop] I have no idea how to manage this traffic, I just started this job, help!",
+                12500);
         }
 
         public void Finish()

@@ -2,7 +2,7 @@
 
 namespace VehicleCollisions.Entities
 {
-    public class PolicePed
+    public class EmergencyPed
     {
         public string AnimationLib;
         public string AnimationName;
@@ -12,21 +12,21 @@ namespace VehicleCollisions.Entities
         public string Scenario;
         public WeaponHash Weapon;
 
-        public PolicePed(Vector3 location, float heading, PedHash model)
+        public EmergencyPed(Vector3 location, float heading, PedHash model)
         {
             Location = location;
             Heading = heading;
             Model = model;
         }
 
-        public PolicePed GiveWeapon(WeaponHash weapon)
+        public EmergencyPed GiveWeapon(WeaponHash weapon)
         {
             Weapon = weapon;
 
             return this;
         }
 
-        public PolicePed SetAnimation(string animationLib = null, string animationName = null)
+        public EmergencyPed SetAnimation(string animationLib = null, string animationName = null)
         {
             AnimationLib = animationLib;
             AnimationName = animationName;
@@ -34,7 +34,7 @@ namespace VehicleCollisions.Entities
             return this;
         }
 
-        public PolicePed SetScenario(string scenario = null)
+        public EmergencyPed SetScenario(string scenario = null)
         {
             Scenario = scenario;
 

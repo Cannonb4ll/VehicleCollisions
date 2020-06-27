@@ -16,7 +16,7 @@ namespace VehicleCollisions
         private Ped[] _civilianPeds;
         private Vehicle[] _crashedCars;
         private Vehicle[] _emergencyCars;
-        private Ped[] _policePeds;
+        private Ped[] _emergencyPeds;
         private int[] _spawnedObjects;
         
         public VehicleCollisions()
@@ -36,11 +36,11 @@ namespace VehicleCollisions
             // When user accepts, continue
             InitBlip();
 
-            // Spawn the on-emergency car (if any)
+            // Spawn the on-scene emergency cars (if any)
             await SpawnOnSceneEmergencyCars();
 
-            // Spawn the on-scene ped cops
-            await SpawnOnScenePedCops();
+            // Spawn the on-scene emergency peds
+            await SpawnOnSceneEmergencyPeds();
 
             // Spawn the scene objects
             await SpawnObjects();
@@ -87,29 +87,29 @@ namespace VehicleCollisions
             }
         }
 
-        public async Task SpawnOnScenePedCops()
+        public async Task SpawnOnSceneEmergencyPeds()
         {
-            _policePeds = new Ped[_scene.PolicePeds.Length];
-            for (var i = 0; i < _scene.PolicePeds.Length; i++)
+            _emergencyPeds = new Ped[_scene.EmergencyPeds.Length];
+            for (var i = 0; i < _scene.EmergencyPeds.Length; i++)
             {
-                var policePed = _scene.PolicePeds[i];
+                var emergencyPed = _scene.EmergencyPeds[i];
 
-                _policePeds[i] = await SpawnPed(policePed.Model, policePed.Location);
-                _policePeds[i].AlwaysKeepTask = true;
-                _policePeds[i].BlockPermanentEvents = true;
+                _emergencyPeds[i] = await SpawnPed(emergencyPed.Model, emergencyPed.Location);
+                _emergencyPeds[i].AlwaysKeepTask = true;
+                _emergencyPeds[i].BlockPermanentEvents = true;
 
-                _policePeds[i].Weapons.Give(policePed.Weapon, 1, true, true);
+                _emergencyPeds[i].Weapons.Give(emergencyPed.Weapon, 1, true, true);
 
-                SetEntityHeading(_policePeds[i].Handle, policePed.Heading);
+                SetEntityHeading(_emergencyPeds[i].Handle, emergencyPed.Heading);
 
-                if (policePed.AnimationLib != null)
+                if (emergencyPed.AnimationLib != null)
                 {
-                    RequestAnimDict(policePed.AnimationLib);
-                    _policePeds[i].Task.PlayAnimation(policePed.AnimationLib, policePed.AnimationName);
+                    RequestAnimDict(emergencyPed.AnimationLib);
+                    _emergencyPeds[i].Task.PlayAnimation(emergencyPed.AnimationLib, emergencyPed.AnimationName);
                 }
 
-                if (policePed.Scenario != null)
-                    TaskStartScenarioInPlace(_policePeds[i].Handle, policePed.Scenario, 0, true);
+                if (emergencyPed.Scenario != null)
+                    TaskStartScenarioInPlace(_emergencyPeds[i].Handle, emergencyPed.Scenario, 0, true);
             }
         }
 
@@ -425,9 +425,9 @@ namespace VehicleCollisions
 
             try
             {
-                if (_policePeds.Length > 0)
+                if (_emergencyPeds.Length > 0)
                     // Remove the on-scene cop cars (if any)
-                    foreach (var policePed in _policePeds)
+                    foreach (var policePed in _emergencyPeds)
                     {
                         if (policePed == null) continue;
 

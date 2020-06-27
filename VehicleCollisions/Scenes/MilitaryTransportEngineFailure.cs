@@ -109,7 +109,7 @@ namespace VehicleCollisions.Scenes
         {
         };
 
-        public PolicePed[] PolicePeds => new PolicePed[]
+        public EmergencyPed[] EmergencyPeds => new EmergencyPed[]
         {
         };
 

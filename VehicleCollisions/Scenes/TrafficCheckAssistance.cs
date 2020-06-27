@@ -37,15 +37,15 @@ namespace VehicleCollisions.Scenes
             new EmergencyCar(new Vector3(1161.28f, 390.53f, 91.45f), 336.08f, VehicleHash.Polmav)
         };
 
-        public PolicePed[] PolicePeds => new[]
+        public EmergencyPed[] EmergencyPeds => new[]
         {
-            new PolicePed(new Vector3(1149.05f, 386.33f, 91.39f), 139.1f, PedUtilities.GetRandomCop())
+            new EmergencyPed(new Vector3(1149.05f, 386.33f, 91.39f), 139.1f, PedUtilities.GetRandomCop())
                 .GiveWeapon(WeaponHash.Flare),
 
-            new PolicePed(new Vector3(1169.34f, 403.18f, 91.25f), 155.57f, PedUtilities.GetRandomCop())
+            new EmergencyPed(new Vector3(1169.34f, 403.18f, 91.25f), 155.57f, PedUtilities.GetRandomCop())
                 .SetAnimation("facials@gen_male@base", "mood_talking_1"),
 
-            new PolicePed(new Vector3(1168.63f, 400.5f, 91.31f), 344.94f, PedUtilities.GetRandomCop())
+            new EmergencyPed(new Vector3(1168.63f, 400.5f, 91.31f), 344.94f, PedUtilities.GetRandomCop())
                 .SetAnimation("facials@gen_male@base", "mood_talking_1")
         };
 

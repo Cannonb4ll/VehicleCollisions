@@ -14,7 +14,7 @@ namespace VehicleCollisions.Scenes
         Vector3 Coordinates { get; }
         ObjectModel[] ObjectModels { get; }
         EmergencyCar[] EmergencyCars { get; }
-        PolicePed[] PolicePeds { get; }
+        EmergencyPed[] EmergencyPeds { get; }
         CivilianPed[] CivilianPeds { get; }
         CrashedVehicle[] CrashedCars { get; }
         string[] Notifications();

@@ -50,7 +50,7 @@
         <Compile Include="Entities\CrashedVehicleTrailerVehicle.cs" />
         <Compile Include="Entities\ObjectModel.cs" />
         <Compile Include="Entities\EmergencyCar.cs" />
-        <Compile Include="Entities\PolicePed.cs" />
+        <Compile Include="Entities\EmergencyPed.cs" />
         <Compile Include="Entities\VehiclePed.cs" />
         <Compile Include="Scenes\CarCrashWithBike.cs" />
         <Compile Include="Scenes\CarDroveThroughRoadBlock.cs" />

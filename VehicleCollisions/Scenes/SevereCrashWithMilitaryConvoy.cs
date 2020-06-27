@@ -42,9 +42,9 @@ namespace VehicleCollisions.Scenes
         };
 
         // Define the on-scene police officers (if any)
-        public PolicePed[] PolicePeds => new[]
+        public EmergencyPed[] EmergencyPeds => new[]
         {
-            new PolicePed(new Vector3(-1780f, -658, 10), 10f, PedUtilities.GetRandomCop())
+            new EmergencyPed(new Vector3(-1780f, -658, 10), 10f, PedUtilities.GetRandomCop())
                 .GiveWeapon(WeaponHash.Flare)
         };
 
