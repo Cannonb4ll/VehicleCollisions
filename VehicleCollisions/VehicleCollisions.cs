@@ -9,7 +9,7 @@ using Utilities = VehicleCollisions.Utils.Utilities;
 
 namespace VehicleCollisions
 {
-    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.0.2")]
+    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.1")]
     public class VehicleCollisions : Callout
     {
         private readonly IScene _scene;
