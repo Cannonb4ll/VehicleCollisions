@@ -8,8 +8,6 @@ namespace VehicleCollisions.Scenes
 {
     internal class CarDroveThroughRoadBlock : IScene
     {
-        public bool HasAdditionalTasks => false;
-        
         public float[] AccidentHeadings =
         {
             169.54f,
@@ -57,7 +55,7 @@ namespace VehicleCollisions.Scenes
             RandomCoordinates = AccidentLocations[AccidentIndex];
         }
 
-        private static Random rnd => new Random();
+        public bool HasAdditionalTasks => false;
         public string Title => "Car drove through roadblock";
 
         public string Description =>

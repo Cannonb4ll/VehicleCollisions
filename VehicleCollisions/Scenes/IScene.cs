@@ -21,7 +21,7 @@ namespace VehicleCollisions.Scenes
         void Accept();
         void Finish();
         void Start(Ped[] civilianPeds, Vehicle[] crashedCars);
-       
+
         Task RunAdditionalTasks();
     }
 }

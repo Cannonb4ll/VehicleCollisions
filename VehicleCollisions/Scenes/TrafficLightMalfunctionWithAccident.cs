@@ -9,7 +9,6 @@ namespace VehicleCollisions.Scenes
     internal class TrafficLightMalfunctionWithAccident : IScene
     {
         public bool HasAdditionalTasks => false;
-        private static Random rnd => new Random();
         public string Title => "Traffic light malfunction with accident";
 
         public string Description =>

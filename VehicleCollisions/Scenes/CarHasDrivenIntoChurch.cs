@@ -9,7 +9,7 @@ namespace VehicleCollisions.Scenes
     internal class CarHasDrivenIntoChurch : IScene
     {
         public bool HasAdditionalTasks => false;
-        
+
         public string Title => "Car has driven into church";
 
         public string Description =>

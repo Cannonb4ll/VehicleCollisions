@@ -25,7 +25,7 @@ namespace VehicleCollisions.Entities
         public bool ShouldRandomSpawn;
         public bool SirenActive;
         public bool SirenSilent;
-        
+
         public CrashedVehicle(
             Vector3 location,
             float heading,
@@ -121,7 +121,7 @@ namespace VehicleCollisions.Entities
 
             return this;
         }
-        
+
         public CrashedVehicle SetSirenActive(bool sirenActive = false)
         {
             SirenActive = sirenActive;

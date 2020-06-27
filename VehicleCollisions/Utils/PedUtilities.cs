@@ -18,7 +18,7 @@ namespace VehicleCollisions.Utils
 
         private static readonly PedHash[] FirefighterHashes =
         {
-            PedHash.Fireman01SMY,
+            PedHash.Fireman01SMY
         };
 
         private static readonly PedHash[] MilitaryHashes =
@@ -106,9 +106,9 @@ namespace VehicleCollisions.Utils
         public static PedHash GetRandomPed()
         {
             var values = Enum.GetValues(typeof(PedHash));
-            
+
             PedHash pedHash;
-            
+
             do
             {
                 pedHash = (PedHash) values.GetValue(Utilities.Between(0, values.Length));

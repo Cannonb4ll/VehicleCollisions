@@ -59,7 +59,7 @@ namespace VehicleCollisions.Utils
             VehicleHash.Zion,
             VehicleHash.Zentorno,
             VehicleHash.Voodoo,
-            VehicleHash.Voodoo2,
+            VehicleHash.Voodoo2
         };
 
         private static readonly VehicleHash[] Bikes =
@@ -87,7 +87,7 @@ namespace VehicleCollisions.Utils
             VehicleHash.Savage,
             VehicleHash.Buzzard
         };
-        
+
         private static readonly VehicleHash[] CopCars =
         {
             VehicleHash.Police,
@@ -98,7 +98,7 @@ namespace VehicleCollisions.Utils
             VehicleHash.PoliceOld2,
             VehicleHash.PoliceT,
             VehicleHash.FBI,
-            VehicleHash.FBI2,
+            VehicleHash.FBI2
         };
 
         public static VehicleHash GetRandomVehicle()
@@ -126,7 +126,7 @@ namespace VehicleCollisions.Utils
         {
             return Bikes[Utilities.Between(0, Bikes.Length)];
         }
-        
+
         public static VehicleHash GetRandomCopCar()
         {
             return CopCars[Utilities.Between(0, CopCars.Length)];

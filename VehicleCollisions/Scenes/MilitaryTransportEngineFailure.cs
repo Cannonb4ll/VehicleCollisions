@@ -10,8 +10,6 @@ namespace VehicleCollisions.Scenes
 {
     internal class MilitaryTransportEngineFailure : IScene
     {
-        public bool HasAdditionalTasks => true;
-        
         private static readonly VehicleHash[] TrailerVehicles =
         {
             VehicleHash.Hydra,
@@ -34,8 +32,9 @@ namespace VehicleCollisions.Scenes
             VehicleHash.Schafter6
         };
 
-        private readonly int CarFixingTime = Utilities.Between(15, 60) * 1000;
         private readonly VehicleCollisions _vehicleCollisions;
+
+        private readonly int CarFixingTime = Utilities.Between(15, 60) * 1000;
 
         public float[] AccidentHeadings =
         {
@@ -89,6 +88,7 @@ namespace VehicleCollisions.Scenes
         }
 
         private static Random rnd => new Random();
+        public bool HasAdditionalTasks => true;
         public string Title => "Military transport in trouble";
         public string Description => "We've received a call from the military, a truck with load is having issues.";
         public int ResponseCode => 3;

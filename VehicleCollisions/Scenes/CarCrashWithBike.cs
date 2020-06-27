@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CitizenFX.Core;
 using VehicleCollisions.Entities;
 using VehicleCollisions.Utils;
@@ -8,8 +7,6 @@ namespace VehicleCollisions.Scenes
 {
     internal class CarCrashWithBike : IScene
     {
-        public bool HasAdditionalTasks => false;
-        
         public int AccidentIndex;
 
         public Vector3[] AccidentLocations =
@@ -57,6 +54,8 @@ namespace VehicleCollisions.Scenes
         public Vector3 BikeCoordinates => new Vector3(Coordinates.X + Utilities.Between(1, 10),
             Coordinates.Y + Utilities.Between(1, 10),
             Coordinates.Z);
+
+        public bool HasAdditionalTasks => false;
 
         public string Title => "Car crash with bike";
         public string Description => "We've received a call a bike has collided with a car.";

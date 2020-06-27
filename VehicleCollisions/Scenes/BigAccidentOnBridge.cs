@@ -8,8 +8,6 @@ namespace VehicleCollisions.Scenes
 {
     internal class BigAccidentOnBridge : IScene
     {
-        public bool HasAdditionalTasks => false;
-        
         public Vector3 RandomCoordinates;
 
         public BigAccidentOnBridge()
@@ -17,9 +15,8 @@ namespace VehicleCollisions.Scenes
             RandomCoordinates = new Vector3(Utilities.Between(510, 807), Utilities.Between(-861, -841),
                 Utilities.Between(40, 42));
         }
-
-
-        private static Random rnd => new Random();
+        
+        public bool HasAdditionalTasks => false;
         public string Title => "Big accident on bridge";
         public string Description => "We've received a call about several cars crashing into each other on the bridge.";
         public int ResponseCode => 3;

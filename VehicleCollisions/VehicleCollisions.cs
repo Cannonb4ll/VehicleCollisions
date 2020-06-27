@@ -18,7 +18,7 @@ namespace VehicleCollisions
         private Vehicle[] _emergencyCars;
         private Ped[] _emergencyPeds;
         private int[] _spawnedObjects;
-        
+
         public VehicleCollisions()
         {
             _scene = new SceneFactory().GetScene(this);
@@ -65,10 +65,7 @@ namespace VehicleCollisions
             // Run the scene start method
             _scene.Start(_civilianPeds, _crashedCars);
 
-            if (_scene.HasAdditionalTasks)
-            {
-                Tick += _scene.RunAdditionalTasks;
-            }
+            if (_scene.HasAdditionalTasks) Tick += _scene.RunAdditionalTasks;
         }
 
         public async Task SpawnOnSceneEmergencyCars()
@@ -151,8 +148,8 @@ namespace VehicleCollisions
                 // If the car should randomly spawn, make it a 50% chance
                 //if (crashedCar.ShouldRandomSpawn && Utilities.RandomBool())
                 //{
-                 //   continue;
-               // }
+                //   continue;
+                // }
 
                 // Spawn the actual vehicle
                 _crashedCars[i] = await SpawnVehicle(crashedCar.Model, crashedCar.Location, crashedCar.Heading);
@@ -258,7 +255,7 @@ namespace VehicleCollisions
                 // Determine sirene
                 if (crashedCar.SirenActive) _crashedCars[i].IsSirenActive = true;
                 if (crashedCar.SirenSilent) _crashedCars[i].IsSirenSilent = true;
-                
+
                 // If we have any drivers for the crashed car, spawn these
                 if (crashedCar.Peds != null)
                     foreach (var vehiclePed in crashedCar.Peds)
@@ -346,10 +343,7 @@ namespace VehicleCollisions
 
         public override void OnCancelBefore()
         {
-            if (_scene.HasAdditionalTasks)
-            {
-                Tick -= _scene.RunAdditionalTasks;
-            }
+            if (_scene.HasAdditionalTasks) Tick -= _scene.RunAdditionalTasks;
 
             try
             {
@@ -357,10 +351,7 @@ namespace VehicleCollisions
                     // Remove crashed car blip
                     foreach (var spawnedCar in _crashedCars)
                     {
-                        if (spawnedCar != null && spawnedCar.AttachedBlip != null)
-                        {
-                            spawnedCar.AttachedBlip?.Delete(); 
-                        }
+                        if (spawnedCar != null && spawnedCar.AttachedBlip != null) spawnedCar.AttachedBlip?.Delete();
 
                         // Remove ped blip
                         foreach (var passenger in spawnedCar.Occupants)
@@ -384,7 +375,7 @@ namespace VehicleCollisions
                     {
                         if (spawnedCivilian != null && spawnedCivilian.AttachedBlip != null)
                         {
-                            spawnedCivilian.AttachedBlip?.Delete();;
+                            spawnedCivilian.AttachedBlip?.Delete();
                         }
 
                         if (!spawnedCivilian.IsVisible) spawnedCivilian.Delete();

@@ -9,9 +9,8 @@ namespace VehicleCollisions.Scenes
 {
     internal class TrafficCheckAssistance : IScene
     {
-        public bool HasAdditionalTasks => false;
-        
         public int SpeedZone;
+        public bool HasAdditionalTasks => false;
         public string Title => "Assistance with traffic control required";
         public string Description => "We need assistance with our traffic control.";
         public int ResponseCode => 1;

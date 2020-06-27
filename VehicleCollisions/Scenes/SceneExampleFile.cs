@@ -7,7 +7,7 @@ namespace VehicleCollisions.Scenes
     internal class SceneExampleFile : IScene
     {
         public bool HasAdditionalTasks => false;
-        
+
         public string Title => "<Title>";
         public string Description => "<Description>";
         public int ResponseCode => 3;
