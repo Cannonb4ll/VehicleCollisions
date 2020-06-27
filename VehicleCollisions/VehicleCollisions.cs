@@ -21,8 +21,7 @@ namespace VehicleCollisions
         
         public VehicleCollisions()
         {
-            _scene = new SceneFactory(Utilities.Between(1, 10)).GetScene(this);
-            //scene = new SceneFactory(2).GetScene(this);
+            _scene = new SceneFactory().GetScene(this);
 
             InitInfo(new Vector3(_scene.Coordinates.X, _scene.Coordinates.Y, _scene.Coordinates.Z));
 
@@ -37,7 +36,7 @@ namespace VehicleCollisions
             // When user accepts, continue
             InitBlip();
 
-            // Spawn the on-scene cop car (if any)
+            // Spawn the on-emergency car (if any)
             await SpawnOnSceneEmergencyCars();
 
             // Spawn the on-scene ped cops
@@ -257,6 +256,10 @@ namespace VehicleCollisions
                 if (crashedCar.RightRearDoorOpen) SetVehicleDoorOpen(crashedCarHandle, 3, false, false);
                 if (crashedCar.HoodOpen) SetVehicleDoorOpen(crashedCarHandle, 4, false, false);
 
+                // Determine sirene
+                if (crashedCar.SirenActive) _crashedCars[i].IsSirenActive = true;
+                if (crashedCar.SirenSilent) _crashedCars[i].IsSirenSilent = true;
+                
                 // If we have any drivers for the crashed car, spawn these
                 if (crashedCar.Peds != null)
                     foreach (var vehiclePed in crashedCar.Peds)

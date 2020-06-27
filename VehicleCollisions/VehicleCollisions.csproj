@@ -54,6 +54,7 @@
         <Compile Include="Entities\VehiclePed.cs" />
         <Compile Include="Scenes\CarCrashWithBike.cs" />
         <Compile Include="Scenes\CarDroveThroughRoadBlock.cs" />
+        <Compile Include="Scenes\CrashWithEmergencyServices.cs" />
         <Compile Include="Scenes\MilitaryTransportEngineFailure.cs" />
         <Compile Include="Scenes\SceneExampleFile.cs" />
         <Compile Include="Scenes\BigAccidentOnBridge.cs" />

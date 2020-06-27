@@ -30,7 +30,17 @@ namespace VehicleCollisions.Scenes
             new Vector3(-719.87f, -2390.4f, 14.76f),
             new Vector3(428.12f, 297.9f, 103.0f),
             new Vector3(-1073.6f, 389.89f, 68.95f),
-            new Vector3(-2166.56f, -337.01f, 13.2f)
+            new Vector3(-2166.56f, -337.01f, 13.2f),
+            new Vector3(216.62f, -1295.37f, 29.34f),
+            new Vector3(-133.14f, -1733.31f, 30.14f),
+            new Vector3(-1077.31f, -1476.38f, 5.11f),
+            new Vector3(-1405.01f, -911.16f, 11.11f),
+            new Vector3(-1559.36f, -336.36f, 46.96f),
+            new Vector3(-1074.05f, 400.38f, 69.0f),
+            new Vector3(-559.42f, 514.18f, 105.72f),
+            new Vector3(209.88f, 198.14f, 105.59f),
+            new Vector3(1270.75f, -542.6f, 68.94f),
+            new Vector3(915.96f, -2245.27f, 30.54f)
         };
 
         public Vector3 RandomCoordinates;
@@ -83,8 +93,10 @@ namespace VehicleCollisions.Scenes
                 .SetPedsInVehicle(new[]
                 {
                     new VehiclePed(Coordinates, 0f, PedUtilities.GetRandomPed(), VehicleSeat.Driver)
+                        .SetHealth(Utilities.Between(0, 200))
                 })
                 .SetEngineHealth(Utilities.Between(50, 200))
+                .ShouldBeDamaged(true)
                 .SetDoorsOpen(false, false, false, false, Utilities.RandomBool())
                 .ShouldHaveBlip(true),
 

@@ -23,7 +23,9 @@ namespace VehicleCollisions.Entities
         public bool ShouldRandomBeDamaged;
         public bool ShouldRandomBurstTires;
         public bool ShouldRandomSpawn;
-
+        public bool SirenActive;
+        public bool SirenSilent;
+        
         public CrashedVehicle(
             Vector3 location,
             float heading,
@@ -116,6 +118,20 @@ namespace VehicleCollisions.Entities
         public CrashedVehicle ShouldBeDamaged(bool damaged = false)
         {
             BeDamaged = damaged;
+
+            return this;
+        }
+        
+        public CrashedVehicle SetSirenActive(bool sirenActive = false)
+        {
+            SirenActive = sirenActive;
+
+            return this;
+        }
+
+        public CrashedVehicle SetSirenSilent(bool sirenSilent = false)
+        {
+            SirenSilent = sirenSilent;
 
             return this;
         }

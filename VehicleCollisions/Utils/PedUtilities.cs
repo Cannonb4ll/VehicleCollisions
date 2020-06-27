@@ -16,6 +16,11 @@ namespace VehicleCollisions.Utils
             PedHash.PrologueSec02Cutscene
         };
 
+        private static readonly PedHash[] FirefighterHashes =
+        {
+            PedHash.Fireman01SMY,
+        };
+
         private static readonly PedHash[] MilitaryHashes =
         {
             PedHash.Armymech01SMY,
@@ -85,27 +90,28 @@ namespace VehicleCollisions.Utils
 
         public static PedHash GetRandomCop()
         {
-            var rnd = new Random();
-
             return CopHashes[Utilities.Between(0, CopHashes.Length)];
         }
 
         public static PedHash GetRandomMilitary()
         {
-            var rnd = new Random();
-
             return MilitaryHashes[Utilities.Between(0, MilitaryHashes.Length)];
         }
 
+        public static PedHash GetRandomFirefighter()
+        {
+            return FirefighterHashes[Utilities.Between(0, FirefighterHashes.Length)];
+        }
 
         public static PedHash GetRandomPed()
         {
             var values = Enum.GetValues(typeof(PedHash));
-            var random = new Random();
+            
             PedHash pedHash;
+            
             do
             {
-                pedHash = (PedHash) values.GetValue(random.Next(0, values.Length));
+                pedHash = (PedHash) values.GetValue(Utilities.Between(0, values.Length));
             } while (Array.IndexOf(SafePeds, pedHash) != -1);
 
             return pedHash;
