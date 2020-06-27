@@ -8,7 +8,8 @@ namespace VehicleCollisions.Scenes
 
         public SceneFactory()
         {
-            _sceneNumber = Utilities.Between(1, 11);
+            _sceneNumber = 12;
+            //_sceneNumber = Utilities.Between(1, 12);
         }
 
         public IScene GetScene(VehicleCollisions vehicleCollisions)
@@ -36,7 +37,9 @@ namespace VehicleCollisions.Scenes
                 case 10:
                     return new CarCrashWithBike();
                 case 11:
-                    return new CrashWithEmergencyServices();          
+                    return new CrashWithEmergencyServices();      
+                case 12:
+                    return new HighwayAccident();    
                 default:
                     return new SevereCrashWithMilitaryConvoy();
             }

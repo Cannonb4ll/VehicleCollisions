@@ -49,12 +49,13 @@
         <Compile Include="Entities\CrashedVehicleTrailer.cs" />
         <Compile Include="Entities\CrashedVehicleTrailerVehicle.cs" />
         <Compile Include="Entities\ObjectModel.cs" />
-        <Compile Include="Entities\PoliceCar.cs" />
+        <Compile Include="Entities\EmergencyCar.cs" />
         <Compile Include="Entities\PolicePed.cs" />
         <Compile Include="Entities\VehiclePed.cs" />
         <Compile Include="Scenes\CarCrashWithBike.cs" />
         <Compile Include="Scenes\CarDroveThroughRoadBlock.cs" />
         <Compile Include="Scenes\CrashWithEmergencyServices.cs" />
+        <Compile Include="Scenes\HighwayAccident.cs" />
         <Compile Include="Scenes\MilitaryTransportEngineFailure.cs" />
         <Compile Include="Scenes\SceneExampleFile.cs" />
         <Compile Include="Scenes\BigAccidentOnBridge.cs" />

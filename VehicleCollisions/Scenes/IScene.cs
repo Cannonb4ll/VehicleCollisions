@@ -13,7 +13,7 @@ namespace VehicleCollisions.Scenes
         bool HasAdditionalTasks { get; }
         Vector3 Coordinates { get; }
         ObjectModel[] ObjectModels { get; }
-        PoliceCar[] EmergencyCars { get; }
+        EmergencyCar[] EmergencyCars { get; }
         PolicePed[] PolicePeds { get; }
         CivilianPed[] CivilianPeds { get; }
         CrashedVehicle[] CrashedCars { get; }

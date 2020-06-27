@@ -105,7 +105,7 @@ namespace VehicleCollisions.Scenes
 
         public Vector3 Coordinates => new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z);
 
-        public PoliceCar[] EmergencyCars => new PoliceCar[]
+        public EmergencyCar[] EmergencyCars => new EmergencyCar[]
         {
         };
 

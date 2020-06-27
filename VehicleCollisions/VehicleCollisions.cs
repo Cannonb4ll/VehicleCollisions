@@ -9,7 +9,7 @@ using Utilities = VehicleCollisions.Utils.Utilities;
 
 namespace VehicleCollisions
 {
-    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.0.0")]
+    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.0.2")]
     public class VehicleCollisions : Callout
     {
         private readonly IScene _scene;
@@ -149,11 +149,10 @@ namespace VehicleCollisions
                 var crashedCar = _scene.CrashedCars[i];
 
                 // If the car should randomly spawn, make it a 50% chance
-                // TODO: This is not possible for now because the array length bug
-                /*if (crashedCar.ShouldRandomSpawn && Utilities.RandomBool())
-                {
-                    continue;
-                }*/
+                //if (crashedCar.ShouldRandomSpawn && Utilities.RandomBool())
+                //{
+                 //   continue;
+               // }
 
                 // Spawn the actual vehicle
                 _crashedCars[i] = await SpawnVehicle(crashedCar.Model, crashedCar.Location, crashedCar.Heading);

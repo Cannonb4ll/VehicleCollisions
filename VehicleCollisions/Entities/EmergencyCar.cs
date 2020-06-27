@@ -2,7 +2,7 @@
 
 namespace VehicleCollisions.Entities
 {
-    public class PoliceCar
+    public class EmergencyCar
     {
         public float Heading;
         public Vector3 Location;
@@ -11,28 +11,28 @@ namespace VehicleCollisions.Entities
         public bool SirenSilent;
         public bool TrunkOpen;
 
-        public PoliceCar(Vector3 location, float heading, VehicleHash model)
+        public EmergencyCar(Vector3 location, float heading, VehicleHash model)
         {
             Location = location;
             Heading = heading;
             Model = model;
         }
 
-        public PoliceCar SetSirenActive(bool sirenActive = false)
+        public EmergencyCar SetSirenActive(bool sirenActive = false)
         {
             SirenActive = sirenActive;
 
             return this;
         }
 
-        public PoliceCar SetSirenSilent(bool sirenSilent = false)
+        public EmergencyCar SetSirenSilent(bool sirenSilent = false)
         {
             SirenSilent = sirenSilent;
 
             return this;
         }
 
-        public PoliceCar SetTrunkOpen(bool trunkOpen = false)
+        public EmergencyCar SetTrunkOpen(bool trunkOpen = false)
         {
             TrunkOpen = trunkOpen;
 
