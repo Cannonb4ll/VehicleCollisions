@@ -156,7 +156,10 @@ namespace VehicleCollisions
 
                 var crashedCarHandle = _crashedCars[i].Handle;
 
-                SetVehicleEngineOn(crashedCarHandle, true, true, false);
+                if (crashedCar.EngineRunning)
+                {
+                    SetVehicleEngineOn(crashedCarHandle, true, true, false);
+                }
 
                 // Set the engine health
                 _crashedCars[i].EngineHealth = crashedCar.EngineHealth;
@@ -256,6 +259,9 @@ namespace VehicleCollisions
                 if (crashedCar.SirenActive) _crashedCars[i].IsSirenActive = true;
                 if (crashedCar.SirenSilent) _crashedCars[i].IsSirenSilent = true;
 
+                // Determine leaking tank
+                if(crashedCar.TankHealth < 1000) SetVehiclePetrolTankHealth(crashedCarHandle, crashedCar.TankHealth);
+                
                 // If we have any drivers for the crashed car, spawn these
                 if (crashedCar.Peds != null)
                     foreach (var vehiclePed in crashedCar.Peds)

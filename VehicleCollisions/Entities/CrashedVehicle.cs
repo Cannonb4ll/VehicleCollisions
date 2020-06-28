@@ -25,6 +25,8 @@ namespace VehicleCollisions.Entities
         public bool ShouldRandomSpawn;
         public bool SirenActive;
         public bool SirenSilent;
+        public bool EngineRunning = true;
+        public float TankHealth = 1000;
 
         public CrashedVehicle(
             Vector3 location,
@@ -132,6 +134,20 @@ namespace VehicleCollisions.Entities
         public CrashedVehicle SetSirenSilent(bool sirenSilent = false)
         {
             SirenSilent = sirenSilent;
+
+            return this;
+        }
+        
+        public CrashedVehicle SetPetrolTankHealth(float tankHealth = 1000)
+        {
+            TankHealth = tankHealth;
+
+            return this;
+        }
+        
+        public CrashedVehicle SetEngineRunning(bool running = true)
+        {
+            EngineRunning = running;
 
             return this;
         }

@@ -55,6 +55,7 @@
         <Compile Include="Scenes\CarCrashWithBike.cs" />
         <Compile Include="Scenes\CarCrashWithFire.cs" />
         <Compile Include="Scenes\CarDroveThroughRoadBlock.cs" />
+        <Compile Include="Scenes\CarPetrolLeak.cs" />
         <Compile Include="Scenes\CrashWithEmergencyServices.cs" />
         <Compile Include="Scenes\HighwayAccident.cs" />
         <Compile Include="Scenes\MilitaryTransportEngineFailure.cs" />
