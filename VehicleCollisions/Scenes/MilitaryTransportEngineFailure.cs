@@ -209,7 +209,7 @@ namespace VehicleCollisions.Scenes
             }
         }
 
-        public async void TheTruckCouldNotBeFixedAndCaughtOnFire()
+        private async void TheTruckCouldNotBeFixedAndCaughtOnFire()
         {
             ShowSubtitle("[Military officer] SHIT! Wrong cable! Put out the fire or run!", 10000);
 
@@ -219,7 +219,7 @@ namespace VehicleCollisions.Scenes
             SpawnedCivilianPeds[0].Task.FleeFrom(SpawnedCrashedCars[0].Driver);
         }
 
-        public async void MechanicGetsOverWhelmedByFumes()
+        private async void MechanicGetsOverWhelmedByFumes()
         {
             ShowSubtitle("[Military officer] Ooof... These fumes are not good, I do not feel well..", 10000);
 
@@ -228,7 +228,7 @@ namespace VehicleCollisions.Scenes
             SetEntityHealth(SpawnedCivilianPeds[0].Handle, 0);
         }
 
-        public async void MilitaryGetsAttacked()
+        private async void MilitaryGetsAttacked()
         {
             ShowNotification("[Dispatch] We've received a call a suspicious vehicle is heading towards your location.");
             ShowNotification("[Dispatch] We marked the vehicle on your map, check out the vehicle.");
@@ -268,7 +268,7 @@ namespace VehicleCollisions.Scenes
             SpawnedCivilianPeds[0].AlwaysKeepTask = true;
         }
 
-        public async void TheTruckIsFixedAndCanDriveAway()
+        private async void TheTruckIsFixedAndCanDriveAway()
         {
             ShowSubtitle("[Military officer] Alright, all good! Thanks for guarding us.", 10000);
 

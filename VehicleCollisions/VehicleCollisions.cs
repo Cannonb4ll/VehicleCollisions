@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using FivePD.API;
+using VehicleCollisions.Entities;
 using VehicleCollisions.Scenes;
 using static CitizenFX.Core.Native.API;
 using static CitizenFX.Core.UI.Screen;
@@ -9,7 +10,7 @@ using Utilities = VehicleCollisions.Utils.Utilities;
 
 namespace VehicleCollisions
 {
-    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.1")]
+    [CalloutProperties("Vehicle Collisions", "Dennis Smink", "1.1.1")]
     public class VehicleCollisions : Callout
     {
         private readonly IScene _scene;
@@ -36,20 +37,55 @@ namespace VehicleCollisions
             // When user accepts, continue
             InitBlip();
 
-            // Spawn the on-scene emergency cars (if any)
-            await SpawnOnSceneEmergencyCars();
+            try
+            {
+                // Spawn the on-scene emergency cars (if any)
+                await SpawnOnSceneEmergencyCars();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"[Vehicle Collisions] Unable to spawn emergency cars for scene: {exception}");
+            }
 
-            // Spawn the on-scene emergency peds
-            await SpawnOnSceneEmergencyPeds();
+            try
+            {
+                // Spawn the on-scene emergency peds
+                await SpawnOnSceneEmergencyPeds();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"[Vehicle Collisions] Unable to spawn emergency peds for scene: {exception}");
+            }
 
-            // Spawn the scene objects
-            await SpawnObjects();
+            try
+            {
+                // Spawn the scene objects
+                await SpawnObjects();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"[Vehicle Collisions] Unable to spawn objects for scene: {exception}");
+            }
 
-            // Spawn crashed cars
-            await SpawnCrashedCars();
+            try
+            {
+                // Spawn crashed cars
+                await SpawnCrashedCars();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"[Vehicle Collisions] Unable to spawn crashed cars for scene: {exception}");
+            }
 
-            // Spawn the civilians for the cars
-            await SpawnCivilians();
+            try
+            {
+                // Spawn the civilians for the cars
+                await SpawnCivilians();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine($"[Vehicle Collisions] Unable to spawn civilian peds for scene: {exception}");
+            }
 
             // Run the notifications
             RunNotifications();
@@ -65,10 +101,17 @@ namespace VehicleCollisions
             // Run the scene start method
             _scene.Start(_civilianPeds, _crashedCars);
 
-            if (_scene.HasAdditionalTasks) Tick += _scene.RunAdditionalTasks;
+            try
+            {
+                if (_scene.HasAdditionalTasks) Tick += _scene.RunAdditionalTasks;
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine("[Vehicle Collisions] We we're unable to run the Tick");
+            }
         }
 
-        public async Task SpawnOnSceneEmergencyCars()
+        private async Task SpawnOnSceneEmergencyCars()
         {
             _emergencyCars = new Vehicle[_scene.EmergencyCars.Length];
             for (var i = 0; i < _scene.EmergencyCars.Length; i++)
@@ -84,19 +127,19 @@ namespace VehicleCollisions
             }
         }
 
-        public async Task SpawnOnSceneEmergencyPeds()
+        private async Task SpawnOnSceneEmergencyPeds()
         {
             _emergencyPeds = new Ped[_scene.EmergencyPeds.Length];
             for (var i = 0; i < _scene.EmergencyPeds.Length; i++)
             {
-                var emergencyPed = _scene.EmergencyPeds[i];
+                EmergencyPed emergencyPed = _scene.EmergencyPeds[i];
 
                 _emergencyPeds[i] = await SpawnPed(emergencyPed.Model, emergencyPed.Location);
                 _emergencyPeds[i].AlwaysKeepTask = true;
                 _emergencyPeds[i].BlockPermanentEvents = true;
-
+                
                 _emergencyPeds[i].Weapons.Give(emergencyPed.Weapon, 1, true, true);
-
+                
                 SetEntityHeading(_emergencyPeds[i].Handle, emergencyPed.Heading);
 
                 if (emergencyPed.AnimationLib != null)
@@ -104,13 +147,15 @@ namespace VehicleCollisions
                     RequestAnimDict(emergencyPed.AnimationLib);
                     _emergencyPeds[i].Task.PlayAnimation(emergencyPed.AnimationLib, emergencyPed.AnimationName);
                 }
-
+                
                 if (emergencyPed.Scenario != null)
+                {
                     TaskStartScenarioInPlace(_emergencyPeds[i].Handle, emergencyPed.Scenario, 0, true);
+                }
             }
         }
 
-        public async Task SpawnObjects()
+        private async Task SpawnObjects()
         {
             _spawnedObjects = new int[_scene.ObjectModels.Length];
 
@@ -138,7 +183,7 @@ namespace VehicleCollisions
             }
         }
 
-        public async Task SpawnCrashedCars()
+        private async Task SpawnCrashedCars()
         {
             _crashedCars = new Vehicle[_scene.CrashedCars.Length];
             for (var i = 0; i < _scene.CrashedCars.Length; i++)
@@ -264,6 +309,7 @@ namespace VehicleCollisions
                 
                 // If we have any drivers for the crashed car, spawn these
                 if (crashedCar.Peds != null)
+                {
                     foreach (var vehiclePed in crashedCar.Peds)
                     {
                         if (vehiclePed.ShouldRandomSpawn && Utilities.RandomBool()) continue;
@@ -283,6 +329,7 @@ namespace VehicleCollisions
                             driver.AttachedBlip.Color = BlipColor.Green;
                         }
                     }
+                }
 
                 // Attach trailer
                 if (crashedCar.AttachedTrailer != null)
@@ -305,7 +352,7 @@ namespace VehicleCollisions
             }
         }
 
-        public async Task SpawnCivilians()
+        private async Task SpawnCivilians()
         {
             _civilianPeds = new Ped[_scene.CivilianPeds.Length];
             for (var i = 0; i < _scene.CivilianPeds.Length; i++)
@@ -360,12 +407,13 @@ namespace VehicleCollisions
                         if (spawnedCar != null && spawnedCar.AttachedBlip != null) spawnedCar.AttachedBlip?.Delete();
 
                         // Remove ped blip
-                        foreach (var passenger in spawnedCar.Occupants)
-                        {
-                            if (passenger == null) continue;
+                        if (spawnedCar != null)
+                            foreach (var passenger in spawnedCar.Occupants)
+                            {
+                                if (passenger == null) continue;
 
-                            passenger.AttachedBlip?.Delete();
-                        }
+                                passenger.AttachedBlip?.Delete();
+                            }
                     }
             }
             catch (Exception)
@@ -384,7 +432,7 @@ namespace VehicleCollisions
                             spawnedCivilian.AttachedBlip?.Delete();
                         }
 
-                        if (!spawnedCivilian.IsVisible) spawnedCivilian.Delete();
+                        if (spawnedCivilian != null && !spawnedCivilian.IsVisible) spawnedCivilian.Delete();
                     }
             }
             catch (Exception)

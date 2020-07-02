@@ -8,8 +8,6 @@ namespace VehicleCollisions.Scenes
 {
     internal class SevereCrashWithMilitaryConvoy : IScene
     {
-        private Ped[] SpawnedCivilianPeds;
-        private Vehicle[] SpawnedCrashedCars;
         public bool HasAdditionalTasks => false;
         public string Title => "Severe crash with military convoy";
 
@@ -29,7 +27,7 @@ namespace VehicleCollisions.Scenes
         }
 
         // Define the coordinates of the main accident
-        public Vector3 Coordinates => new Vector3(-1777, -677, -10);
+        public Vector3 Coordinates => new Vector3(-1769.41f, -668.4f, 10.4f);
 
         // Define the on-scene police cars (if any)
         public EmergencyCar[] EmergencyCars => new[]
@@ -47,7 +45,7 @@ namespace VehicleCollisions.Scenes
                 .GiveWeapon(WeaponHash.Flare)
         };
 
-        public ObjectModel[] ObjectModels => new[]
+        public ObjectModel[] ObjectModels => new ObjectModel[]
         {
             new ObjectModel(new Vector3(-1778.23f, -659.09f, 10f), 939377219),
             new ObjectModel(new Vector3(-1775.35f, -658.70f, 10f), 939377219),
@@ -100,20 +98,13 @@ namespace VehicleCollisions.Scenes
 
         public void Start(Ped[] CivilianPeds = null, Vehicle[] CrashedCars = null)
         {
-            SpawnedCivilianPeds = CivilianPeds;
-            SpawnedCrashedCars = CrashedCars;
-
             ShowSubtitle("[Officer] I am trying to block the road here for you, I have not evaluated the situation yet",
                 10000);
         }
 
         public void Finish()
         {
-            if (SpawnedCivilianPeds != null && SpawnedCivilianPeds != null)
-            {
-                SpawnedCivilianPeds[0].Task.EnterVehicle(SpawnedCrashedCars[2]);
-                SpawnedCivilianPeds[1].Task.EnterVehicle(SpawnedCrashedCars[3]);
-            }
+
         }
 
         public Task RunAdditionalTasks()

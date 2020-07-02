@@ -54,7 +54,10 @@ namespace VehicleCollisions.Scenes
         public string[] Notifications()
         {
             return new string[]
-                { };
+            {
+                "We've received a call a cars petrol tank is leaking.",
+                "Deal with the leaking tank, tow away the car and cleanup the scene.s"
+            };
         }
 
         public Vector3 Coordinates => new Vector3(RandomCoordinates.X, RandomCoordinates.Y, RandomCoordinates.Z);
