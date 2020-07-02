@@ -23,11 +23,11 @@ Each callout also brings its own dynamics, which I am of course still working on
 
 ## Installation
 
-Place the VehicleCollisions.net.dll inside your /callouts folder from FivePD.
+Place the VehicleIncidents.net.dll inside your /callouts folder from FivePD.
 
 ## Version
 
-This callout has been built with the latest API (1.1) so it will only support 1.1 or higher versions.
+This callout has been built with the latest API (1.0) so it will only support servers running FivePD 1.1 or higher versions.
 
 ## Issues & bugs
 
